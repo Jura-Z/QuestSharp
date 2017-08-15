@@ -21,7 +21,7 @@ namespace SharpQuest
         public static void Main2(string[] args)
         {
             var filename = "/Users/Iurii/Projects/mine/_Rangers/TGE/Prison.qm";
-            var filename2 = "/Users/Iurii/Projects/mine/_Rangers/tge2/Quests/Game/Fishing.qm";
+            //var filename2 = "/Users/Iurii/Projects/mine/_Rangers/tge2/Quests/Game/Fishing.qm";
             var q = new Quest(filename);
 
             Console.WriteLine(q);
