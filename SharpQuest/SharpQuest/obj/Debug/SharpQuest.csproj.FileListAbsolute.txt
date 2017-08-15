@@ -1,0 +1,8 @@
+/Users/Iurii/Projects/mine/_Rangers/SharpQuest/SharpQuest/SharpQuest/bin/Debug/SharpQuest.exe
+/Users/Iurii/Projects/mine/_Rangers/SharpQuest/SharpQuest/SharpQuest/bin/Debug/SharpQuest.pdb
+/Users/Iurii/Projects/mine/_Rangers/SharpQuest/SharpQuest/SharpQuest/obj/Debug/SharpQuest.csprojResolveAssemblyReference.cache
+/Users/Iurii/Projects/mine/_Rangers/SharpQuest/SharpQuest/SharpQuest/obj/Debug/SharpQuest.csproj.CoreCompileInputs.cache
+/Users/Iurii/Projects/mine/_Rangers/SharpQuest/SharpQuest/SharpQuest/obj/Debug/SharpQuest.exe
+/Users/Iurii/Projects/mine/_Rangers/SharpQuest/SharpQuest/SharpQuest/obj/Debug/SharpQuest.pdb
+/Users/Iurii/Projects/mine/_Rangers/SharpQuest/SharpQuest/SharpQuest/bin/Debug/Newtonsoft.Json.dll
+/Users/Iurii/Projects/mine/_Rangers/SharpQuest/SharpQuest/SharpQuest/bin/Debug/Newtonsoft.Json.xml
