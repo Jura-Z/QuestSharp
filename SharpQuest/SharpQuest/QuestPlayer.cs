@@ -86,8 +86,12 @@ namespace SharpQuest
             quest = q;
             StartGame();
 
-            foreach (var variant in steps)
+            //foreach (var variant in steps)
+            for (var stepi = 0; stepi < steps.Length; ++stepi)
             {
+                var variant = steps[stepi];
+                var variantInt = int.Parse(variant.ToString()) - 1;
+                    
                 ShowParameters();
                 
                 var loc = CurrentLocation();
@@ -132,10 +136,21 @@ namespace SharpQuest
                 foreach (var v in trans)
                     Console.WriteLine("- " + v.StartPathMessage);
 
-                var p = trans[int.Parse(variant.ToString()) - 1];
+                var p = trans[variantInt];
                 Console.WriteLine("===================================");
                 Console.WriteLine("- " + p.StartPathMessage);
                 Console.WriteLine("===================================");
+                
+                if (string.IsNullOrEmpty(p.EndPathMessage) == false)
+                {
+                    Console.WriteLine(p.EndPathMessage);
+                    Console.WriteLine("===================================");
+                    Console.WriteLine("- Далее");
+                    Console.WriteLine("===================================");
+                    ++stepi;
+                    //Assert.IsTrue(steps[stepi] == '1');
+                }
+                
                 DoTransition(p);
             }
             
@@ -508,7 +523,7 @@ namespace SharpQuest
         public List<QuestPath> PossibleTransitions()
         {
             var result = new List<QuestPath>();
-            
+
             foreach (var t in CurrentLocation().transitions)
             {
                 var canGo = PathesWeCanGo[currentLocationIndx, t.PathIndx]; 
