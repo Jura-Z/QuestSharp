@@ -42,12 +42,12 @@ namespace QuestUnitTest
                     var Answer = step.GetValue("Answer").Value<JObject>();
 
                     // ---------------------------------------------
-
-                    Assert.AreEqual(description, player.CurrentLocation().LocationDescription, "Invalid description");
+                    string s = player.CurrentLocation().LocationDescription;
+                    Assert.AreEqual(description, s , "Invalid description");
                     Assert.AreEqual(dayspassed, player.daysPassed, "Invalid dayspassed");
                     //Assert.AreEqual(CustomCriticalMessage, );
                     //Assert.AreEqual(CurrentCriticalParameter, );
-                    int i;
+                    int i, j;
 
                     // Pars -------------------------------------------------
                     i = 0;
@@ -59,6 +59,7 @@ namespace QuestUnitTest
                         Assert.AreEqual(tmp1, tmp2);
                         i++;
                     }
+                    /*
                     // ParVisState -------------------------------------------------
                     i = 0;
                     Assert.AreEqual(ParVisState.Count, player.ParVisState.Length);
@@ -77,6 +78,66 @@ namespace QuestUnitTest
                         Assert.AreEqual(tmp, player.ShowParameters(i));
                         i++;
                     }
+                    /**/
+
+                    // Answers --------------------------------
+                    var trans = player.PossibleTransitions();
+                    Assert.AreEqual(Answers.Count, trans.Count);
+                    i = 0;
+                    foreach (JObject item in Answers)
+                    {
+                        int index1 = item.GetValue("Index").Value<int>();
+                        string value1 = item.GetValue("Value").Value<string>();
+
+                        int index2 = i + 1;
+                        string value2 = trans[i].StartPathMessage;
+
+                        Assert.AreEqual(index1, index2);
+                        Assert.AreEqual(value1, value2);
+                        i++;
+                    }
+                    // PathesWeCanGo --------------------------------
+                    i = 0;
+                    j = 0;
+
+                    int[,] tmpArray = new int[player.quest.LocationsValue, player.quest.PathesValue];
+                    for (int a = 0; a < player.quest.LocationsValue; ++a)
+                    {
+                        for (int b = 0; b < player.quest.PathesValue; ++b)
+                        {
+                            tmpArray[a, b] = player.PathesWeCanGo[a, b];
+                        }
+                    }
+
+                    foreach (JObject item in PathesWeCanGo)
+                    {
+                        int loc = item.GetValue("Loc").Value<int>();
+                        int path = item.GetValue("Path").Value<int>();
+                        int val = item.GetValue("Value").Value<int>();
+
+                        Assert.AreEqual(tmpArray[loc - 1, path - 1], val, string.Format("invalid item  [{0}, {1}]", loc, path));
+                        tmpArray[loc - 1, path - 1] = -1;
+                    }
+
+                    for (int a = 0; a < player.quest.LocationsValue; ++a)
+                    {
+                        for (int b = 0; b < player.quest.PathesValue; ++b)
+                        {
+                            Assert.IsTrue(tmpArray[a, b] <= 0, string.Format("item not exists in source [{0}, {1}]", a,b) );
+                        }
+                    }
+
+                    // ---------------------------------
+
+                    int step_index = Answer.GetValue("Index").Value<int>();
+                    string step_string = Answer.GetValue("Value").Value<string>();
+
+                    QuestPath qp = trans[step_index-1];
+
+                    Assert.AreEqual(step_string, qp.StartPathMessage);
+
+                    player.DoTransition(qp);
+
                 }
             }
 
