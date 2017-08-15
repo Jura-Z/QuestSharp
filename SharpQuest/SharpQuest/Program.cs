@@ -80,10 +80,19 @@ namespace SharpQuest
                     if (indx < 0 || indx >= trans.Count) continue;
 
                     Console.WriteLine();
-                    Console.WriteLine(trans[indx].EndPathMessage);
+
+                    if (string.IsNullOrEmpty(trans[indx].EndPathMessage) == false)
+                    {
+                        Console.WriteLine(trans[indx].EndPathMessage);
+                        Console.WriteLine("1)\tДалее");
+                        Console.Write(">");
+                        Console.ReadLine();
+                    }
 
                     player.DoTransition(trans[indx]);
 
+                    
+                    
                     break;
                 }
             }
