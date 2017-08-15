@@ -275,5 +275,11 @@ namespace SharpQuest
         
              
         }
+
+        public static string ProcessString(string text)
+        {
+            text = text.Replace("<ToPlanet>", "Магадан");
+            return text;
+        }
     }
 }

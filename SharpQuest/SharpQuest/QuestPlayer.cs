@@ -17,7 +17,9 @@ namespace SharpQuest
         public bool[] ParVisState = new bool[Quest.maxparameters];
         public int[,] PathesWeCanGo = new int[Quest.maxlocations, Quest.maxpathes];
 
-
+        public string CustomCriticalMessage = "";
+        public int CurrentCriticalParameter = 0;
+            
         public string ShowParameters(int i)
         {
             var qp = this;
@@ -111,8 +113,8 @@ namespace SharpQuest
                     s.ParVisState[i] = ParVisState[i];
                 }
                 s.dayspassed = daysPassed;
-                s.CustomCriticalMessage = "";
-                s.CurrentCriticalParameter = 0;
+                s.CustomCriticalMessage = CustomCriticalMessage;
+                s.CurrentCriticalParameter = CurrentCriticalParameter;
                 
                 s.PathesWeCanGo = new List<PathState>();
                 for (int i = 0; i < q.LocationsValue; ++i)
@@ -220,9 +222,9 @@ namespace SharpQuest
                 if ((quest.Pars[i].LoLimit) && (pars[i] <= quest.Pars[i].min) ||
                     (!quest.Pars[i].LoLimit) && (pars[i] >= quest.Pars[i].max))
                 {
-//                    CustomCriticalMessage = quest.Paths[pathIndx].DPars[i].CriticalMessage.Trim();
-//                    CurrentCriticalParameter = i;
-//                    
+                    CustomCriticalMessage = quest.Paths[pathIndx].DPars[i].CriticalMessage.Trim();
+                    CurrentCriticalParameter = i;
+                    
                     Console.WriteLine( i + " -> " + quest.Paths[pathIndx].DPars[i].CriticalMessage.Trim() );
                     return true;
                 }
@@ -247,9 +249,9 @@ namespace SharpQuest
                 if ((quest.Pars[i].LoLimit) && (pars[i] <= quest.Pars[i].min) ||
                     (!quest.Pars[i].LoLimit) && (pars[i] >= quest.Pars[i].max))
                 {
-//                    CustomCriticalMessage = quest.Paths[pathIndx].DPars[i].CriticalMessage.Trim();
-//                    CurrentCriticalParameter = i;
-//                    
+                    CustomCriticalMessage = quest.Paths[pathIndx].DPars[i].CriticalMessage.Trim();
+                    CurrentCriticalParameter = i;
+                    
                     Console.WriteLine( i + " -> " + quest.Paths[pathIndx].DPars[i].CriticalMessage.Trim() );
                     return true;
                 }
@@ -292,7 +294,7 @@ namespace SharpQuest
             //Печатаем текст локации,если все нормально
             if (quest.Locations[currentLocationIndx].VoidLocation == false)
             {
-            //    quest.Locations[currentLocationIndx].FindLocationDescription(LocationClass.TParValues(GamePars));
+                quest.Locations[currentLocationIndx].FindLocationDescription(Pars);
 //                SDTcall(
 //                    FixStringValueParameters(trim(PlayGame.Locations[locationindex].LocationDescription.text), true),
 //                    false);
@@ -388,7 +390,7 @@ namespace SharpQuest
                     ParVisState[i] = false;
                 }
 
-                if (delta[i].ParameterViewAction == QuestParameterDelta.HideParameter)
+                if (delta[i].ParameterViewAction == QuestParameterDelta.ShowParameter)
                 {
                     ParVisState[i] = true;
                 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SharpQuest;
 using System.IO;
@@ -41,11 +42,11 @@ namespace QuestUnitTest
                     var Answer = step.GetValue("Answer").Value<JObject>();
 
                     // ---------------------------------------------
-                    string s = player.CurrentLocation().LocationDescription;
+                    string s = player.CurrentLocation().FindLocationDescription(player.Pars);
                     Assert.AreEqual(description, s , "Invalid description");
                     Assert.AreEqual(dayspassed, player.daysPassed, "Invalid dayspassed");
-                    //Assert.AreEqual(CustomCriticalMessage, );
-                    //Assert.AreEqual(CurrentCriticalParameter, );
+                    Assert.AreEqual(CustomCriticalMessage, player.CustomCriticalMessage);
+                    Assert.AreEqual(CurrentCriticalParameter, player.CurrentCriticalParameter);
                     int i, j;
 
                     // Pars -------------------------------------------------
@@ -58,7 +59,7 @@ namespace QuestUnitTest
                         Assert.AreEqual(tmp1, tmp2);
                         i++;
                     }
-                    /*
+                    /**/
                     // ParVisState -------------------------------------------------
                     i = 0;
                     Assert.AreEqual(ParVisState.Count, player.ParVisState.Length);
@@ -135,6 +136,8 @@ namespace QuestUnitTest
 
                     Assert.AreEqual(step_string, qp.StartPathMessage);
 
+                    Console.WriteLine("Step done: {0}", qp);
+                    
                     player.DoTransition(qp);
 
                 }

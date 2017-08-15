@@ -51,7 +51,9 @@ namespace SharpQuest
                 var bufferString = Encoding.Unicode.GetString(buffer);    // 16 bit
                 sb.Append(bufferString);
             }
-            return sb.ToString();
+            var s = sb.ToString();
+            s = s.Replace("\r", "");
+            return s;
         }
 
         public static double ReadDouble(FileStream fs)
