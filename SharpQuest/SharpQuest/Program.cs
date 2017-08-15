@@ -9,16 +9,13 @@ namespace SharpQuest
 
         public static void Main(string[] args)
         {
-            //var filename = "/Users/Iurii/Desktop/Prison3.9.4.qm";
-            var filename = "/Users/Iurii/Desktop/Prison4.0.2.qm";
-            var filename2 = "/Users/Iurii/Projects/mine/_Rangers/tge2/Quests/Game/Fishing.qm";
+
+            var filename = "../../../Data/Prison3.9.4.qm";
+            //var filename = "/Users/Iurii/Desktop/Prison4.0.2.qm";
+            //var filename2 = "/Users/Iurii/Projects/mine/_Rangers/tge2/Quests/Game/Fishing.qm";
             var q = new Quest(filename);
 
-            var player = new QuestPlayer(q, "21111111311421111211321111211211311");
-
-            
-
-         
+            var player = new QuestPlayer(q, "211112113114213113113212121142145111311421211");
         }
 
         public static void Main2(string[] args)
