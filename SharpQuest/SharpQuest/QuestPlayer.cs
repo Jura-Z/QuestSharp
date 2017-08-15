@@ -86,7 +86,6 @@ namespace SharpQuest
             quest = q;
             StartGame();
 
-            //foreach (var variant in steps)
             for (var stepi = 0; stepi < steps.Length; ++stepi)
             {
                 var variant = steps[stepi];
