@@ -1,19 +1,18 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SharpQuest;
 using System.IO;
+using NUnit.Framework;
 
 namespace QuestUnitTest
 {
-    [TestClass]
+    [TestFixture]
     public class UnitTest1
     {
-        [TestMethod]
+        [Test]
         public void TestMethod1()
         {
-            var filename = "../../../Data/TestPrison3.9.4.json";
+            var filename = "/Users/Iurii/Projects/mine/_Rangers/SharpQuest/SharpQuest/Data/TestPrison3.9.4.json";
             using (var sr = new StreamReader(filename))
             {
                 var reader = new JsonTextReader(sr);
@@ -22,7 +21,7 @@ namespace QuestUnitTest
                 var questFilename = jObject.GetValue("Quest").Value<string>();
                 var questSteps = jObject.GetValue("Steps").Value<JArray>();
 
-                questFilename = "../../../Data/" + questFilename;
+                questFilename = "/Users/Iurii/Projects/mine/_Rangers/SharpQuest/SharpQuest/Data/" + questFilename;
                 var q = new Quest(questFilename);
                 var player = new QuestPlayer(q);
 
