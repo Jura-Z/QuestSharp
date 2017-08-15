@@ -40,13 +40,44 @@ namespace QuestUnitTest
                     var Answers = step.GetValue("Answers").Value<JArray>();
 
                     var Answer = step.GetValue("Answer").Value<JObject>();
-                }
-                /*
 
-                // JObject can be cast into a dynamic
-                var dObject = (dynamic)jObject;
-                someValue = (string)dObject.someProperty;
-                */
+                    // ---------------------------------------------
+
+                    Assert.AreEqual(description, player.CurrentLocation().LocationDescription, "Invalid description");
+                    Assert.AreEqual(dayspassed, player.daysPassed, "Invalid dayspassed");
+                    //Assert.AreEqual(CustomCriticalMessage, );
+                    //Assert.AreEqual(CurrentCriticalParameter, );
+                    int i;
+
+                    // Pars -------------------------------------------------
+                    i = 0;
+                    Assert.AreEqual(Pars.Count, player.Pars.Length);
+                    foreach (JValue item in Pars)
+                    {
+                        int tmp1 = item.ToObject<int>();
+                        int tmp2 = player.Pars[i];
+                        Assert.AreEqual(tmp1, tmp2);
+                        i++;
+                    }
+                    // ParVisState -------------------------------------------------
+                    i = 0;
+                    Assert.AreEqual(ParVisState.Count, player.ParVisState.Length);
+                    foreach (JValue item in ParVisState)
+                    {
+                        bool tmp1 = item.ToObject<bool>();
+                        bool tmp2 = player.ParVisState[i];
+                        Assert.AreEqual(tmp1, tmp2);
+                        i++;
+                    }
+                    // StrPars -------------------------------------------------
+                    i = 0;
+                    foreach (JValue item in StrPars)
+                    {
+                        string tmp = item.ToString();
+                        Assert.AreEqual(tmp, player.ShowParameters(i));
+                        i++;
+                    }
+                }
             }
 
 
