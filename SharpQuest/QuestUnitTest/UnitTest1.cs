@@ -33,6 +33,14 @@ namespace QuestUnitTest
                 foreach (JObject step in questSteps)
                 {
                     var description = step.GetValue("Description").Value<string>();
+
+                    var EndPathMessage = "";
+                    try
+                    {
+                        EndPathMessage = step.GetValue("EndPathMessage").Value<string>();
+                    }
+                    catch { }
+
                     var dayspassed = step.GetValue("dayspassed").Value<int>();
                     var CustomCriticalMessage = step.GetValue("CustomCriticalMessage").Value<string>();
                     var CurrentCriticalParameter = step.GetValue("CurrentCriticalParameter").Value<int>();
@@ -130,7 +138,7 @@ namespace QuestUnitTest
                     string step_string = Answer.GetValue("Value").Value<string>();
 
                     QuestPath qp = trans[step_index-1];
-
+                    Assert.AreEqual(EndPathMessage, qp.EndPathMessage); 
                     Assert.AreEqual(step_string, qp.StartPathMessage);
 
                     Console.WriteLine("Step done: {0}", qp);
