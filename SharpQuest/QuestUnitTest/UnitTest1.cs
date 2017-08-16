@@ -13,7 +13,11 @@ namespace QuestUnitTest
         [Test]
         public void TestMethod1()
         {
-            var filename = "/Users/Iurii/Projects/mine/_Rangers/SharpQuest/SharpQuest/Data/TestPrison3.9.4.json";
+            var basepath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            
+            var filename = basepath + "/../../../Data/TestPrison3.9.4.json";
+            filename = Path.GetFullPath(filename);
+
             using (var sr = new StreamReader(filename))
             {
                 var reader = new JsonTextReader(sr);
@@ -22,7 +26,7 @@ namespace QuestUnitTest
                 var questFilename = jObject.GetValue("Quest").Value<string>();
                 var questSteps = jObject.GetValue("Steps").Value<JArray>();
 
-                questFilename = "/Users/Iurii/Projects/mine/_Rangers/SharpQuest/SharpQuest/Data/" + questFilename;
+                questFilename = basepath + "/../../../Data/" + questFilename;
                 var q = new Quest(questFilename);
                 var player = new QuestPlayer(q);
 
@@ -43,7 +47,10 @@ namespace QuestUnitTest
 
                     // ---------------------------------------------
                     string s = player.CurrentLocation().FindLocationDescription(player.Pars);
+                    s = s.Replace("\r", "");
+                    description = description.Replace("\r", "");
                     Assert.AreEqual(description, s , "Invalid description");
+
                     Assert.AreEqual(dayspassed, player.daysPassed, "Invalid dayspassed");
                     Assert.AreEqual(CustomCriticalMessage, player.CustomCriticalMessage);
                     Assert.AreEqual(CurrentCriticalParameter, player.CurrentCriticalParameter);
@@ -100,31 +107,21 @@ namespace QuestUnitTest
                     i = 0;
                     j = 0;
 
-                    int[,] tmpArray = new int[player.quest.LocationsValue, player.quest.PathesValue];
-                    for (int a = 0; a < player.quest.LocationsValue; ++a)
+                    Assert.AreEqual(PathesWeCanGo.Count, player.quest.LocationsValue);
+                    foreach (JArray items in PathesWeCanGo)
                     {
-                        for (int b = 0; b < player.quest.PathesValue; ++b)
+                        Assert.AreEqual(items.Count, player.quest.PathesValue);
+                        j = 0;
+                        foreach (JValue item in items)
                         {
-                            tmpArray[a, b] = player.PathesWeCanGo[a, b];
+
+                            int tmp1 = item.ToObject<int>();
+                            int tmp2 = player.PathesWeCanGo[i, j];
+
+                            Assert.AreEqual(tmp1, tmp2, string.Format("invalid item  [{0}, {1}]", i, j));
+                            j++;
                         }
-                    }
-
-                    foreach (JObject item in PathesWeCanGo)
-                    {
-                        int loc = item.GetValue("Loc").Value<int>();
-                        int path = item.GetValue("Path").Value<int>();
-                        int val = item.GetValue("Value").Value<int>();
-
-                        Assert.AreEqual(tmpArray[loc - 1, path - 1], val, string.Format("invalid item  [{0}, {1}]", loc, path));
-                        tmpArray[loc - 1, path - 1] = -1;
-                    }
-
-                    for (int a = 0; a < player.quest.LocationsValue; ++a)
-                    {
-                        for (int b = 0; b < player.quest.PathesValue; ++b)
-                        {
-                            Assert.IsTrue(tmpArray[a, b] <= 0, string.Format("item not exists in source [{0}, {1}]", a,b) );
-                        }
+                        i++;
                     }
 
                     // ---------------------------------
