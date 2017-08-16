@@ -106,11 +106,11 @@ namespace QuestUnitTest
                     {
                         int index1 = item.GetValue("Index").Value<int>();
                         string value1 = item.GetValue("Value").Value<string>();
-                        int number1 = item.GetValue("Number").Value<string>();
+                        int number1 = item.GetValue("Number").Value<int>();
                         
                         int index2 = i + 1;
                         string value2 = trans[i].StartPathMessage;
-                        string number2 = trans[i].PathNumber;
+                        int number2 = trans[i].PathNumber;
 
                         Assert.AreEqual(index1, index2);
                         Assert.AreEqual(value1, value2);
