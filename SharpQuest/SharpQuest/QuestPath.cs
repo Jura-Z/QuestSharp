@@ -4,6 +4,9 @@ namespace SharpQuest
 {
     public class QuestPath
     {
+        public bool gatesOk = true; // realtime data
+        
+        
         private const int MaxPathCoords = 20;
         
         public double Probability;
@@ -46,6 +49,8 @@ namespace SharpQuest
 
         public void Clear()
         {
+            gatesOk = true;
+            
             dayscost = 0;
             ShowOrder = 5;
             Probability = 1;
