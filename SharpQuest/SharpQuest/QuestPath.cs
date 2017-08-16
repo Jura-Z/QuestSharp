@@ -41,7 +41,7 @@ namespace SharpQuest
 
         public override string ToString()
         {
-            return string.Format("<Path #{0} {1} -> {2}. {3}>", PathNumber, FromLocation, ToLocation, StartPathMessage, EndPathMessage);
+            return string.Format("<Path #{0} {1} -> {2}. {3} | {4}>", PathNumber, FromLocation, ToLocation, StartPathMessage, EndPathMessage);
         }
 
         public void Clear()

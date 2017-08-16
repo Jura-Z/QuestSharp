@@ -13,7 +13,8 @@ namespace QuestUnitTest
         [Test]
         public void TestMethod1()
         {
-            var basepath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            //var basepath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            var basepath = Path.GetDirectoryName(new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath);
             
             var filename = basepath + "/../../../Data/TestPrison3.9.4.json";
             filename = Path.GetFullPath(filename);
@@ -54,14 +55,6 @@ namespace QuestUnitTest
                     var Answer = step.GetValue("Answer").Value<JObject>();
 
                     // ---------------------------------------------
-                    string s = player.CurrentLocation().FindLocationDescription(player.Pars);
-                    s = s.Replace("\r", "");
-                    description = description.Replace("\r", "");
-                    Assert.AreEqual(description, s , "Invalid description");
-
-                    Assert.AreEqual(dayspassed, player.daysPassed, "Invalid dayspassed");
-                    Assert.AreEqual(CustomCriticalMessage, player.CustomCriticalMessage);
-                    Assert.AreEqual(CurrentCriticalParameter, player.CurrentCriticalParameter);
                     int i, j;
 
                     // Pars -------------------------------------------------
@@ -74,6 +67,16 @@ namespace QuestUnitTest
                         Assert.AreEqual(tmp1, tmp2);
                         i++;
                     }
+                    
+                    string s = player.CurrentLocation().LocationDescription;
+                    s = s.Replace("\r", "");
+                    description = description.Replace("\r", "");
+                    Assert.AreEqual(description, s , "Invalid description");
+
+                    Assert.AreEqual(dayspassed, player.daysPassed, "Invalid dayspassed");
+                    Assert.AreEqual(CustomCriticalMessage, player.CustomCriticalMessage);
+                    Assert.AreEqual(CurrentCriticalParameter, player.CurrentCriticalParameter);
+                    
                     /**/
                     // ParVisState -------------------------------------------------
                     i = 0;
@@ -103,12 +106,16 @@ namespace QuestUnitTest
                     {
                         int index1 = item.GetValue("Index").Value<int>();
                         string value1 = item.GetValue("Value").Value<string>();
-
+                        int number1 = item.GetValue("Number").Value<string>();
+                        
                         int index2 = i + 1;
                         string value2 = trans[i].StartPathMessage;
+                        string number2 = trans[i].PathNumber;
 
                         Assert.AreEqual(index1, index2);
                         Assert.AreEqual(value1, value2);
+                        Assert.AreEqual(number1, number2);
+                        
                         i++;
                     }
                     // PathesWeCanGo --------------------------------

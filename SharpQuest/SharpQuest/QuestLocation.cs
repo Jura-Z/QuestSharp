@@ -253,6 +253,7 @@ namespace SharpQuest
         }
 
 
+        // Changes state of the Location
         public string FindLocationDescription(int[] playerPars)
         {
             var found = false;
