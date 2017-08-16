@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SharpQuest;
 using System.IO;
+using System.Linq;
 using NUnit.Framework;
 
 namespace QuestUnitTest
@@ -25,8 +26,16 @@ namespace QuestUnitTest
                 var jObject = JObject.Load(reader);
 
                 var questFilename = jObject.GetValue("Quest").Value<string>();
+                
+                var userName = jObject.GetValue("UserName").Value<string>();
+                
+                var randomSeqJson = jObject.GetValue("Random").Value<JArray>();
+                var randomSeq = randomSeqJson.Select(jv => (int)jv).ToArray();
+                QuestRandom.SetSeq(ref randomSeq);
+                
                 var questSteps = jObject.GetValue("Steps").Value<JArray>();
 
+                
                 questFilename = basepath + "/../../../Data/" + questFilename;
                 var q = new Quest(questFilename);
                 var player = new QuestPlayer(q);
@@ -155,10 +164,7 @@ namespace QuestUnitTest
                         string step_string = Answer.GetValue("Value").Value<string>();
 
                         QuestPath qp = trans[step_index - 1];
-                        s = qp.EndPathMessage;
-                        s = s.Replace("\r", "");
-                        EndPathMessage = EndPathMessage.Replace("\r", "");
-                        Assert.AreEqual(EndPathMessage, s);
+                        Assert.AreEqual(EndPathMessage, qp.EndPathMessage);
                         Assert.AreEqual(step_string, qp.StartPathMessage);
 
                         Console.WriteLine("Step done: {0}", qp);

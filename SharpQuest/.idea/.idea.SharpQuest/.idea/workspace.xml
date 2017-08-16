@@ -15,10 +15,9 @@
       <file leaf-file-name="QuestParameter.cs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SharpQuest/QuestParameter.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
+            <state relative-caret-position="2430">
               <caret line="162" column="30" lean-forward="false" selection-start-line="162" selection-start-column="12" selection-end-line="162" selection-end-column="30" />
               <folding>
-                <marker date="1502749739000" expanded="true" signature="38:8902" ph="{...}" />
                 <marker date="1502749739000" expanded="true" signature="41:836" ph="/* min:integer; ... */" />
                 <marker date="1502749739000" expanded="true" signature="869:8900" ph="{...}" />
                 <marker date="1502749739000" expanded="true" signature="917:1425" ph="{...}" />
@@ -48,7 +47,6 @@
               <caret line="54" column="30" lean-forward="false" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
               <folding>
                 <marker date="1502833885000" expanded="false" signature="6:83" ph="..." />
-                <marker date="1502833885000" expanded="true" signature="105:2124" ph="{...}" />
                 <marker date="1502833885000" expanded="true" signature="142:2122" ph="{...}" />
                 <marker date="1502833885000" expanded="true" signature="193:332" ph="{...}" />
                 <marker date="1502833885000" expanded="true" signature="380:521" ph="{...}" />
@@ -65,26 +63,26 @@
       <file leaf-file-name="UnitTest1.cs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/QuestUnitTest/UnitTest1.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1108">
-              <caret line="125" column="79" lean-forward="false" selection-start-line="125" selection-start-column="79" selection-end-line="125" selection-end-column="79" />
+            <state relative-caret-position="360">
+              <caret line="30" column="16" lean-forward="false" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
               <folding>
-                <marker date="1502886916000" expanded="true" signature="6:122" ph="..." />
-                <marker date="1502886916000" expanded="true" signature="147:7209" ph="{...}" />
-                <marker date="1502886916000" expanded="true" signature="194:7207" ph="{...}" />
-                <marker date="1502886916000" expanded="true" signature="249:7201" ph="{...}" />
-                <marker date="1502886916000" expanded="true" signature="698:7047" ph="{...}" />
-                <marker date="1502886916000" expanded="true" signature="1205:7033" ph="{...}" />
-                <marker date="1502886916000" expanded="true" signature="1377:1511" ph="{...}" />
-                <marker date="1502886916000" expanded="true" signature="2552:2786" ph="{...}" />
-                <marker date="1502886916000" expanded="true" signature="3646:3890" ph="{...}" />
-                <marker date="1502886916000" expanded="true" signature="4051:4250" ph="{...}" />
-                <marker date="1502886916000" expanded="true" signature="4548:5247" ph="{...}" />
-                <marker date="1502886916000" expanded="true" signature="5519:6079" ph="{...}" />
-                <marker date="1502886916000" expanded="true" signature="5707:6028" ph="{...}" />
-                <marker date="1502886916000" expanded="true" signature="6205:6324" ph="{...}" />
-                <marker date="1502886916000" expanded="true" signature="6364:6433" ph="{...}" />
-                <marker date="1502886916000" expanded="true" signature="6474:7015" ph="{...}" />
-                <marker date="1502886916000" expanded="true" signature="7063:7190" ph="/* var q = new Quest(filename); ... */" />
+                <marker date="1502918649000" expanded="false" signature="6:141" ph="..." />
+                <marker date="1502918649000" expanded="true" signature="166:7583" ph="{...}" />
+                <marker date="1502918649000" expanded="true" signature="213:7581" ph="{...}" />
+                <marker date="1502918649000" expanded="true" signature="268:7575" ph="{...}" />
+                <marker date="1502918649000" expanded="true" signature="717:7421" ph="{...}" />
+                <marker date="1502918649000" expanded="true" signature="1579:7407" ph="{...}" />
+                <marker date="1502918649000" expanded="true" signature="1751:1885" ph="{...}" />
+                <marker date="1502918649000" expanded="true" signature="2926:3160" ph="{...}" />
+                <marker date="1502918649000" expanded="true" signature="4020:4264" ph="{...}" />
+                <marker date="1502918649000" expanded="true" signature="4425:4624" ph="{...}" />
+                <marker date="1502918649000" expanded="true" signature="4922:5621" ph="{...}" />
+                <marker date="1502918649000" expanded="true" signature="5893:6453" ph="{...}" />
+                <marker date="1502918649000" expanded="true" signature="6081:6402" ph="{...}" />
+                <marker date="1502918649000" expanded="true" signature="6579:6698" ph="{...}" />
+                <marker date="1502918649000" expanded="true" signature="6738:6807" ph="{...}" />
+                <marker date="1502918649000" expanded="true" signature="6848:7389" ph="{...}" />
+                <marker date="1502918649000" expanded="true" signature="7437:7564" ph="/* var q = new Quest(filename); ... */" />
               </folding>
             </state>
           </provider>
@@ -93,7 +91,7 @@
       <file leaf-file-name="Quest.cs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SharpQuest/Quest.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
+            <state relative-caret-position="795">
               <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
               <folding>
                 <marker date="1502834151000" expanded="false" signature="6:102" ph="..." />
@@ -163,8 +161,8 @@
       <file leaf-file-name="QuestPlayer.cs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SharpQuest/QuestPlayer.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="823">
-              <caret line="672" column="46" lean-forward="false" selection-start-line="672" selection-start-column="46" selection-end-line="672" selection-end-column="46" />
+            <state relative-caret-position="622">
+              <caret line="670" column="13" lean-forward="false" selection-start-line="670" selection-start-column="13" selection-end-line="670" selection-end-column="13" />
               <folding>
                 <marker date="1502890939000" expanded="false" signature="6:118" ph="..." />
                 <marker date="1502890939000" expanded="true" signature="140:25137" ph="{...}" />
@@ -270,8 +268,8 @@
       <file leaf-file-name="QuestTCPRange.cs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SharpQuest/QuestTCPRange.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="659">
-              <caret line="82" column="35" lean-forward="false" selection-start-line="82" selection-start-column="20" selection-end-line="82" selection-end-column="35" />
+            <state relative-caret-position="222">
+              <caret line="64" column="33" lean-forward="false" selection-start-line="64" selection-start-column="33" selection-end-line="64" selection-end-column="33" />
               <folding>
                 <marker date="1502890944000" expanded="true" signature="35:3098" ph="{...}" />
                 <marker date="1502890944000" expanded="true" signature="69:3096" ph="{...}" />
@@ -298,15 +296,17 @@
       <file leaf-file-name="QuestRandom.cs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SharpQuest/QuestRandom.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="39" column="1" lean-forward="true" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
+            <state relative-caret-position="615">
+              <caret line="41" column="9" lean-forward="true" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
               <folding>
-                <marker date="1502890933000" expanded="true" signature="6:47" ph="..." />
-                <marker date="1502890933000" expanded="true" signature="69:1101" ph="{...}" />
-                <marker date="1502890933000" expanded="true" signature="100:1099" ph="{...}" />
-                <marker date="1502890933000" expanded="true" signature="187:465" ph="{...}" />
-                <marker date="1502890933000" expanded="true" signature="309:455" ph="{...}" />
-                <marker date="1502890933000" expanded="true" signature="685:1093" ph="{...}" />
+                <marker date="1502918928000" expanded="true" signature="6:70" ph="..." />
+                <marker date="1502918928000" expanded="true" signature="92:1559" ph="{...}" />
+                <marker date="1502918928000" expanded="true" signature="123:1557" ph="{...}" />
+                <marker date="1502918928000" expanded="true" signature="210:708" ph="{...}" />
+                <marker date="1502918928000" expanded="true" signature="343:425" ph="{...}" />
+                <marker date="1502918928000" expanded="true" signature="462:698" ph="{...}" />
+                <marker date="1502918928000" expanded="true" signature="969:1034" ph="{...}" />
+                <marker date="1502918928000" expanded="true" signature="1104:1551" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -315,7 +315,7 @@
       <file leaf-file-name="QuestPath.cs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SharpQuest/QuestPath.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
+            <state relative-caret-position="761">
               <caret line="51" column="27" lean-forward="false" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="27" />
               <folding>
                 <marker date="1502883344000" expanded="true" signature="38:8586" ph="{...}" />
@@ -373,8 +373,6 @@
     </findStrings>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/SharpQuest/Program.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/SharpQuest/QuestPlayer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/SharpQuest/QuestParameterDelta.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/SharpQuest/QuestParameter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/SharpQuest/QuestPath.cs" root0="FORCE_HIGHLIGHTING" />
@@ -382,12 +380,15 @@
     <setting file="file://$PROJECT_DIR$/SharpQuest/QuestValuesList.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/SharpQuest/QuestStreamReader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/SharpQuest/QuestFileVersion.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/DC86DA7F-C46C-487B-A6C7-AB826DA479CC/29/dede0900/JArray.cs" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/SharpQuest/Quest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/SharpQuest/QuestUtils.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/SharpQuest/QuestTCPRange.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/SharpQuest/QuestCalcParse.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/QuestUnitTest/UnitTest1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/SharpQuest/QuestRandom.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/SharpQuest/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/SharpQuest/QuestPlayer.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -403,10 +404,10 @@
         <option value="$PROJECT_DIR$/SharpQuest/QuestValuesList.cs" />
         <option value="$PROJECT_DIR$/SharpQuest/QuestCalcParse.cs" />
         <option value="$PROJECT_DIR$/SharpQuest/QuestPath.cs" />
-        <option value="$PROJECT_DIR$/QuestUnitTest/UnitTest1.cs" />
         <option value="$PROJECT_DIR$/SharpQuest/Program.cs" />
         <option value="$PROJECT_DIR$/SharpQuest/QuestTCPRange.cs" />
         <option value="$PROJECT_DIR$/SharpQuest/QuestPlayer.cs" />
+        <option value="$PROJECT_DIR$/QuestUnitTest/UnitTest1.cs" />
         <option value="$PROJECT_DIR$/SharpQuest/QuestRandom.cs" />
       </list>
     </option>
@@ -418,10 +419,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-2760" />
-    <option name="y" value="-388" />
-    <option name="width" value="2760" />
-    <option name="height" value="2133" />
+    <option name="y" value="23" />
+    <option name="width" value="1920" />
+    <option name="height" value="1173" />
   </component>
   <component name="ProjectView">
     <navigator currentView="SolutionExplorer" proportions="" version="1">
@@ -449,50 +449,6 @@
               <option name="myItemId" value="SharpQuest (2 projects)" />
               <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SharpQuest" />
-              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" />
-              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SharpQuest (2 projects)" />
-              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SharpQuest" />
-              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Properties" />
-              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" />
-              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SharpQuest (2 projects)" />
-              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SharpQuest" />
-              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="References" />
-              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Assemblies" />
-              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -505,24 +461,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="QuestUnitTest" />
-              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" />
-              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SharpQuest (2 projects)" />
-              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="QuestUnitTest" />
-              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Data" />
               <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
             </PATH_ELEMENT>
           </PATH>
@@ -626,6 +564,7 @@
     <list size="1">
       <item index="0" class="java.lang.String" itemvalue=".NET Project.Default" />
     </list>
+    <configuration />
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -640,11 +579,12 @@
       <workItem from="1501844259090" duration="35594000" />
       <workItem from="1502726268300" duration="887000" />
       <workItem from="1502732469722" duration="15325000" />
+      <workItem from="1502915047854" duration="1857000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65048000" />
+    <option name="totallyTimeSpent" value="66972000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -656,43 +596,29 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2760" y="-388" width="2760" height="2133" extended-state="0" />
+    <frame x="0" y="23" width="1920" height="1173" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Errors In Solution" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Unit Tests" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39702234" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32853597" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="NuGet" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985783" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14569536" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32853597" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32853597" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.208933" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Errors In Solution" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Unit Tests" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Unit Tests" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32985783" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5943128" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919562" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="NuGet" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985783" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21086262" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21299255" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32890996" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32890996" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39905214" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39905214" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32890996" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -716,13 +642,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SharpQuest/QuestFileVersion.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1845">
-          <caret line="123" column="46" lean-forward="false" selection-start-line="123" selection-start-column="29" selection-end-line="123" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SharpQuest/QuestPlayer.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6000">
@@ -1060,7 +979,6 @@
         <state relative-caret-position="209">
           <caret line="162" column="30" lean-forward="false" selection-start-line="162" selection-start-column="12" selection-end-line="162" selection-end-column="30" />
           <folding>
-            <marker date="1502749739000" expanded="true" signature="38:8902" ph="{...}" />
             <marker date="1502749739000" expanded="true" signature="41:836" ph="/* min:integer; ... */" />
             <marker date="1502749739000" expanded="true" signature="869:8900" ph="{...}" />
             <marker date="1502749739000" expanded="true" signature="917:1425" ph="{...}" />
@@ -1086,7 +1004,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="373">
           <caret line="42" column="26" lean-forward="false" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1235,7 +1152,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="615">
           <caret line="42" column="26" lean-forward="false" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1265,7 +1181,6 @@
         <state relative-caret-position="420">
           <caret line="28" column="2" lean-forward="true" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
           <folding>
-            <marker date="1502749739000" expanded="true" signature="38:8902" ph="{...}" />
             <marker date="1502749739000" expanded="true" signature="41:836" ph="/* min:integer; ... */" />
             <marker date="1502749739000" expanded="true" signature="869:8900" ph="{...}" />
             <marker date="1502749739000" expanded="true" signature="917:1425" ph="{...}" />
@@ -1365,7 +1280,6 @@
         <state relative-caret-position="1755">
           <caret line="117" column="25" lean-forward="false" selection-start-line="117" selection-start-column="25" selection-end-line="117" selection-end-column="25" />
           <folding>
-            <marker date="1502749739000" expanded="true" signature="38:8902" ph="{...}" />
             <marker date="1502749739000" expanded="true" signature="41:836" ph="/* min:integer; ... */" />
             <marker date="1502749739000" expanded="true" signature="869:8900" ph="{...}" />
             <marker date="1502749739000" expanded="true" signature="917:1425" ph="{...}" />
@@ -1398,7 +1312,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
           <caret line="42" column="26" lean-forward="false" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1539,7 +1452,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="103">
           <caret line="24" column="10" lean-forward="false" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1566,10 +1478,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SharpQuest/QuestParameter.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
+        <state relative-caret-position="2430">
           <caret line="162" column="30" lean-forward="false" selection-start-line="162" selection-start-column="12" selection-end-line="162" selection-end-column="30" />
           <folding>
-            <marker date="1502749739000" expanded="true" signature="38:8902" ph="{...}" />
             <marker date="1502749739000" expanded="true" signature="41:836" ph="/* min:integer; ... */" />
             <marker date="1502749739000" expanded="true" signature="869:8900" ph="{...}" />
             <marker date="1502749739000" expanded="true" signature="917:1425" ph="{...}" />
@@ -1605,35 +1516,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SharpQuest/QuestPath.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="51" column="27" lean-forward="false" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="27" />
-          <folding>
-            <marker date="1502883344000" expanded="true" signature="38:8586" ph="{...}" />
-            <marker date="1502883344000" expanded="true" signature="67:8584" ph="{...}" />
-            <marker date="1502883344000" expanded="true" signature="1493:1656" ph="{...}" />
-            <marker date="1502883344000" expanded="true" signature="1685:2431" ph="{...}" />
-            <marker date="1502883344000" expanded="true" signature="2227:2343" ph="{...}" />
-            <marker date="1502883344000" expanded="true" signature="2506:3453" ph="{...}" />
-            <marker date="1502883344000" expanded="true" signature="3520:4399" ph="{...}" />
-            <marker date="1502883344000" expanded="true" signature="4466:5236" ph="{...}" />
-            <marker date="1502883344000" expanded="true" signature="5283:6065" ph="{...}" />
-            <marker date="1502883344000" expanded="true" signature="6112:6749" ph="{...}" />
-            <marker date="1502883344000" expanded="true" signature="6796:7432" ph="{...}" />
-            <marker date="1502883344000" expanded="true" signature="7479:8043" ph="{...}" />
-            <marker date="1502883344000" expanded="true" signature="8084:8578" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SharpQuest/QuestStreamReader.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="765">
           <caret line="54" column="30" lean-forward="false" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
           <folding>
             <marker date="1502833885000" expanded="false" signature="6:83" ph="..." />
-            <marker date="1502833885000" expanded="true" signature="105:2124" ph="{...}" />
             <marker date="1502833885000" expanded="true" signature="142:2122" ph="{...}" />
             <marker date="1502833885000" expanded="true" signature="193:332" ph="{...}" />
             <marker date="1502833885000" expanded="true" signature="380:521" ph="{...}" />
@@ -1650,13 +1538,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1105">
           <caret line="2024" column="78" lean-forward="false" selection-start-line="2024" selection-start-column="78" selection-end-line="2024" selection-end-column="78" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SharpQuest/Quest.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
+        <state relative-caret-position="795">
           <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
           <folding>
             <marker date="1502834151000" expanded="false" signature="6:102" ph="..." />
@@ -1698,32 +1585,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/QuestUnitTest/UnitTest1.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1108">
-          <caret line="125" column="79" lean-forward="false" selection-start-line="125" selection-start-column="79" selection-end-line="125" selection-end-column="79" />
-          <folding>
-            <marker date="1502886916000" expanded="true" signature="6:122" ph="..." />
-            <marker date="1502886916000" expanded="true" signature="147:7209" ph="{...}" />
-            <marker date="1502886916000" expanded="true" signature="194:7207" ph="{...}" />
-            <marker date="1502886916000" expanded="true" signature="249:7201" ph="{...}" />
-            <marker date="1502886916000" expanded="true" signature="698:7047" ph="{...}" />
-            <marker date="1502886916000" expanded="true" signature="1205:7033" ph="{...}" />
-            <marker date="1502886916000" expanded="true" signature="1377:1511" ph="{...}" />
-            <marker date="1502886916000" expanded="true" signature="2552:2786" ph="{...}" />
-            <marker date="1502886916000" expanded="true" signature="3646:3890" ph="{...}" />
-            <marker date="1502886916000" expanded="true" signature="4051:4250" ph="{...}" />
-            <marker date="1502886916000" expanded="true" signature="4548:5247" ph="{...}" />
-            <marker date="1502886916000" expanded="true" signature="5519:6079" ph="{...}" />
-            <marker date="1502886916000" expanded="true" signature="5707:6028" ph="{...}" />
-            <marker date="1502886916000" expanded="true" signature="6205:6324" ph="{...}" />
-            <marker date="1502886916000" expanded="true" signature="6364:6433" ph="{...}" />
-            <marker date="1502886916000" expanded="true" signature="6474:7015" ph="{...}" />
-            <marker date="1502886916000" expanded="true" signature="7063:7190" ph="/* var q = new Quest(filename); ... */" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SharpQuest/Program.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1290">
@@ -1746,10 +1607,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/SharpQuest/QuestPath.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="761">
+          <caret line="51" column="27" lean-forward="false" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="27" />
+          <folding>
+            <marker date="1502883344000" expanded="true" signature="38:8586" ph="{...}" />
+            <marker date="1502883344000" expanded="true" signature="67:8584" ph="{...}" />
+            <marker date="1502883344000" expanded="true" signature="1493:1656" ph="{...}" />
+            <marker date="1502883344000" expanded="true" signature="1685:2431" ph="{...}" />
+            <marker date="1502883344000" expanded="true" signature="2227:2343" ph="{...}" />
+            <marker date="1502883344000" expanded="true" signature="2506:3453" ph="{...}" />
+            <marker date="1502883344000" expanded="true" signature="3520:4399" ph="{...}" />
+            <marker date="1502883344000" expanded="true" signature="4466:5236" ph="{...}" />
+            <marker date="1502883344000" expanded="true" signature="5283:6065" ph="{...}" />
+            <marker date="1502883344000" expanded="true" signature="6112:6749" ph="{...}" />
+            <marker date="1502883344000" expanded="true" signature="6796:7432" ph="{...}" />
+            <marker date="1502883344000" expanded="true" signature="7479:8043" ph="{...}" />
+            <marker date="1502883344000" expanded="true" signature="8084:8578" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/DC86DA7F-C46C-487B-A6C7-AB826DA479CC/29/dede0900/JArray.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="21" lean-forward="false" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/QuestUnitTest/UnitTest1.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="30" column="16" lean-forward="false" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
+          <folding>
+            <marker date="1502918649000" expanded="false" signature="6:141" ph="..." />
+            <marker date="1502918649000" expanded="true" signature="166:7583" ph="{...}" />
+            <marker date="1502918649000" expanded="true" signature="213:7581" ph="{...}" />
+            <marker date="1502918649000" expanded="true" signature="268:7575" ph="{...}" />
+            <marker date="1502918649000" expanded="true" signature="717:7421" ph="{...}" />
+            <marker date="1502918649000" expanded="true" signature="1579:7407" ph="{...}" />
+            <marker date="1502918649000" expanded="true" signature="1751:1885" ph="{...}" />
+            <marker date="1502918649000" expanded="true" signature="2926:3160" ph="{...}" />
+            <marker date="1502918649000" expanded="true" signature="4020:4264" ph="{...}" />
+            <marker date="1502918649000" expanded="true" signature="4425:4624" ph="{...}" />
+            <marker date="1502918649000" expanded="true" signature="4922:5621" ph="{...}" />
+            <marker date="1502918649000" expanded="true" signature="5893:6453" ph="{...}" />
+            <marker date="1502918649000" expanded="true" signature="6081:6402" ph="{...}" />
+            <marker date="1502918649000" expanded="true" signature="6579:6698" ph="{...}" />
+            <marker date="1502918649000" expanded="true" signature="6738:6807" ph="{...}" />
+            <marker date="1502918649000" expanded="true" signature="6848:7389" ph="{...}" />
+            <marker date="1502918649000" expanded="true" signature="7437:7564" ph="/* var q = new Quest(filename); ... */" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SharpQuest/QuestTCPRange.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="659">
-          <caret line="82" column="35" lean-forward="false" selection-start-line="82" selection-start-column="20" selection-end-line="82" selection-end-column="35" />
+        <state relative-caret-position="222">
+          <caret line="64" column="33" lean-forward="false" selection-start-line="64" selection-start-column="33" selection-end-line="64" selection-end-column="33" />
           <folding>
             <marker date="1502890944000" expanded="true" signature="35:3098" ph="{...}" />
             <marker date="1502890944000" expanded="true" signature="69:3096" ph="{...}" />
@@ -1774,8 +1691,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SharpQuest/QuestPlayer.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="823">
-          <caret line="672" column="46" lean-forward="false" selection-start-line="672" selection-start-column="46" selection-end-line="672" selection-end-column="46" />
+        <state relative-caret-position="622">
+          <caret line="670" column="13" lean-forward="false" selection-start-line="670" selection-start-column="13" selection-end-line="670" selection-end-column="13" />
           <folding>
             <marker date="1502890939000" expanded="false" signature="6:118" ph="..." />
             <marker date="1502890939000" expanded="true" signature="140:25137" ph="{...}" />
@@ -1879,15 +1796,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SharpQuest/QuestRandom.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="39" column="1" lean-forward="true" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
+        <state relative-caret-position="615">
+          <caret line="41" column="9" lean-forward="true" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
           <folding>
-            <marker date="1502890933000" expanded="true" signature="6:47" ph="..." />
-            <marker date="1502890933000" expanded="true" signature="69:1101" ph="{...}" />
-            <marker date="1502890933000" expanded="true" signature="100:1099" ph="{...}" />
-            <marker date="1502890933000" expanded="true" signature="187:465" ph="{...}" />
-            <marker date="1502890933000" expanded="true" signature="309:455" ph="{...}" />
-            <marker date="1502890933000" expanded="true" signature="685:1093" ph="{...}" />
+            <marker date="1502918928000" expanded="true" signature="6:70" ph="..." />
+            <marker date="1502918928000" expanded="true" signature="92:1559" ph="{...}" />
+            <marker date="1502918928000" expanded="true" signature="123:1557" ph="{...}" />
+            <marker date="1502918928000" expanded="true" signature="210:708" ph="{...}" />
+            <marker date="1502918928000" expanded="true" signature="343:425" ph="{...}" />
+            <marker date="1502918928000" expanded="true" signature="462:698" ph="{...}" />
+            <marker date="1502918928000" expanded="true" signature="969:1034" ph="{...}" />
+            <marker date="1502918928000" expanded="true" signature="1104:1551" ph="{...}" />
           </folding>
         </state>
       </provider>
