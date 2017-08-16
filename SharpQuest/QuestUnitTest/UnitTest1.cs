@@ -110,7 +110,7 @@ namespace QuestUnitTest
                         
                         int index2 = i + 1;
                         string value2 = trans[i].StartPathMessage;
-                        int number2 = trans[i].PathNumber;
+                        int number2 = trans[i].PathIndx;
 
                         Assert.AreEqual(index1, index2);
                         Assert.AreEqual(value1, value2);
