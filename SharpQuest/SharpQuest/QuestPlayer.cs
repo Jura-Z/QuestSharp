@@ -630,78 +630,61 @@ namespace SharpQuest
 
         private QuestPath GetPathByProbability(List<QuestPath> pathes)
         {
-            /*
-            function Tform6.GetPathByProbability(pathes:ATAnswer; count:integer):TAnswer;
-            label done;
-            var i:integer;
-            PAnswer:TAnswer;
-            ClearedAnswers:array [1..50] of TAnswer;
-            C_count:integer;
-            maxrnd:integer;
-            custom_maxrnd: array [1..50] of integer;
-            cur_rndvalue:integer;
-            l,k,t:integer;
-            always_show_enabled:boolean;*/
+            var count = pathes.Count;
+            
+            if (count == 1 && ((!pathes[0].gatesOk && pathes[0].AlwaysShowWhenPlaying) || pathes[0].gatesOk ))
             {
-                //var rand = new Random();
-                        
-                var count = pathes.Count;
-                
-                if (count == 1 && ((!pathes[0].gatesOk && pathes[0].AlwaysShowWhenPlaying) || pathes[0].gatesOk ))
+                if (pathes[0].Probability < 1)
                 {
-                    if (pathes[0].Probability < 1)
-                    {
-                        var k = 500;//rand.Next(1000);
-                        var t = (int)Math.Truncate(pathes[0].Probability * 1000);
-                        
-                        return k <= t ? pathes[0] : null;
-                    }
-                    else
-                        return pathes[0];
+                    var k = QuestRandom.Get("GetPathByProbability1", 1000);
+                    var t = (int)Math.Truncate(pathes[0].Probability * 1000);
+                    
+                    return k <= t ? pathes[0] : null;
                 }
-
-                var always_show_enabled = true;
-                for (var i = 0; i < count; ++i)
-                {
-                    if (pathes[i].gatesOk)
-                    {
-                        always_show_enabled = false;
-                        break;
-                    }
-                }
-
-                var ClearedAnswers = new List<QuestPath>();
-                var custom_maxrnd = new List<int>();
-                var maxrnd = 0;
-                
-                for (var i = 0; i < count; ++i)
-                {
-                    if (pathes[i].gatesOk || (always_show_enabled && pathes[i].AlwaysShowWhenPlaying))
-                    {
-                        var max_rand = (int) Math.Round(pathes[i].Probability * 1000);
-                        ClearedAnswers.Add(pathes[i]);
-                        custom_maxrnd.Add(max_rand);
-                        maxrnd = maxrnd + custom_maxrnd[i];
-                    }
-                }
-
-                var cur_rndvalue = maxrnd / 2;//rand.Next(maxrnd);
-
-                var l = 0;
-
-                for (var i = 0; i < ClearedAnswers.Count; ++i)
-                {
-                    if (cur_rndvalue < custom_maxrnd[i] + l)
-                    {
-                        return ClearedAnswers[i];
-                    }
-                    l += custom_maxrnd[i];
-                }
-
-
-                return null;
+                else
+                    return pathes[0];
             }
-            /**/
+
+            var always_show_enabled = true;
+            for (var i = 0; i < count; ++i)
+            {
+                if (pathes[i].gatesOk)
+                {
+                    always_show_enabled = false;
+                    break;
+                }
+            }
+
+            var ClearedAnswers = new List<QuestPath>();
+            var custom_maxrnd = new List<int>();
+            var maxrnd = 0;
+            
+            for (var i = 0; i < count; ++i)
+            {
+                if (pathes[i].gatesOk || (always_show_enabled && pathes[i].AlwaysShowWhenPlaying))
+                {
+                    var max_rand = (int) Math.Round(pathes[i].Probability * 1000);
+                    ClearedAnswers.Add(pathes[i]);
+                    custom_maxrnd.Add(max_rand);
+                    maxrnd = maxrnd + custom_maxrnd[i];
+                }
+            }
+
+            var cur_rndvalue = QuestRandom.Get("GetPathByProbability2", maxrnd);
+
+            var l = 0;
+
+            for (var i = 0; i < ClearedAnswers.Count; ++i)
+            {
+                if (cur_rndvalue < custom_maxrnd[i] + l)
+                {
+                    return ClearedAnswers[i];
+                }
+                l += custom_maxrnd[i];
+            }
+
+
+            return null;
         }
 
         private bool PathIsVoid(QuestPath mixedAnswer)
@@ -726,7 +709,7 @@ namespace SharpQuest
 //                    pathindex = accessible_pathes[CheckedAnswer];
 //            }
 
-            if (pathindex == 0)
+            if (questPath.PathNumber == 0)
             {
                 //ShowMessage('Ошибка перехода');
                 return;
