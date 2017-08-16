@@ -7,7 +7,7 @@ namespace SharpQuest
     internal class Program
     {
 
-        public static void Main(string[] args)
+        public static void Main2(string[] args)
         {
 
             var filename = "../../../Data/Prison3.9.4.qm";
@@ -18,7 +18,7 @@ namespace SharpQuest
             var player = new QuestPlayer(q, "211112113114213113113212121142145111311421211");
         }
 
-        public static void Main2(string[] args)
+        public static void Main(string[] args)
         {
             var filename = "/Users/Iurii/Projects/mine/_Rangers/TGE/Prison.qm";
             //var filename2 = "/Users/Iurii/Projects/mine/_Rangers/tge2/Quests/Game/Fishing.qm";
@@ -33,7 +33,7 @@ namespace SharpQuest
             {
 
                 var loc = player.CurrentLocation();
-                Console.WriteLine(loc);
+                Console.WriteLine(loc.LocationDescription);
 
                 Console.WriteLine();
                 Console.WriteLine("===");                

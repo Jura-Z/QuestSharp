@@ -52,8 +52,6 @@ namespace QuestUnitTest
                     var PathesWeCanGo = step.GetValue("PathesWeCanGo").Value<JArray>();
                     var Answers = step.GetValue("Answers").Value<JArray>();
 
-                    var Answer = step.GetValue("Answer").Value<JObject>();
-
                     // ---------------------------------------------
                     int i, j;
 
@@ -110,11 +108,11 @@ namespace QuestUnitTest
                         
                         int index2 = i + 1;
                         string value2 = trans[i].StartPathMessage;
-                        int number2 = trans[i].PathIndx+1;
+                        int number2 = trans[i].PathIndx + 1;
 
                         Assert.AreEqual(index1, index2);
                         Assert.AreEqual(value1, value2);
-                        //Assert.AreEqual(number1, number2);
+                        Assert.AreEqual(number1, number2);
                         
                         i++;
                     }
@@ -141,17 +139,32 @@ namespace QuestUnitTest
 
                     // ---------------------------------
 
-                    int step_index = Answer.GetValue("Index").Value<int>();
-                    string step_string = Answer.GetValue("Value").Value<string>();
+                    JObject Answer = null;
+                    try
+                    {
+                        Answer = step.GetValue("Answer").Value<JObject>();
+                    }
+                    catch (Exception e)
+                    {
+                        
+                    }
 
-                    QuestPath qp = trans[step_index-1];
-                    Assert.AreEqual(EndPathMessage, qp.EndPathMessage); 
-                    Assert.AreEqual(step_string, qp.StartPathMessage);
+                    if (Answer != null)
+                    {
+                        int step_index = Answer.GetValue("Index").Value<int>();
+                        string step_string = Answer.GetValue("Value").Value<string>();
 
-                    Console.WriteLine("Step done: {0}", qp);
-                    
-                    player.DoTransition(qp);
+                        QuestPath qp = trans[step_index - 1];
+                        s = qp.EndPathMessage;
+                        s = s.Replace("\r", "");
+                        EndPathMessage = EndPathMessage.Replace("\r", "");
+                        Assert.AreEqual(EndPathMessage, s);
+                        Assert.AreEqual(step_string, qp.StartPathMessage);
 
+                        Console.WriteLine("Step done: {0}", qp);
+
+                        player.DoTransition(qp);
+                    }
                 }
             }
 

@@ -54,6 +54,7 @@
     <Compile Include="QuestParameterDelta.cs" />
     <Compile Include="QuestPath.cs" />
     <Compile Include="QuestPlayer.cs" />
+    <Compile Include="QuestRandom.cs" />
     <Compile Include="QuestStreamReader.cs" />
     <Compile Include="QuestTCPRange.cs" />
     <Compile Include="QuestUtils.cs" />
