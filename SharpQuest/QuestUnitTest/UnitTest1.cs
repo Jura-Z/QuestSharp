@@ -114,7 +114,7 @@ namespace QuestUnitTest
 
                         Assert.AreEqual(index1, index2);
                         Assert.AreEqual(value1, value2);
-                        Assert.AreEqual(number1, number2);
+                        Assert.AreEqual(number1, number2+1);
                         
                         i++;
                     }
