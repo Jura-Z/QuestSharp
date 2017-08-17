@@ -5,6 +5,7 @@ using SharpQuest;
 using System.IO;
 using System.Linq;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace QuestUnitTest
 {
@@ -30,8 +31,16 @@ namespace QuestUnitTest
                 var userName = jObject.GetValue("UserName").Value<string>();
                 
                 var randomSeqJson = jObject.GetValue("Random").Value<JArray>();
-                var randomSeq = randomSeqJson.Select(jv => (int)jv).ToArray();
-                QuestRandom.SetSeq(ref randomSeq);
+                
+                var tmp = new List<int>();
+                foreach (JObject item in randomSeqJson)
+                {
+                    var name = item.Properties().First().Name;
+                    int value = (int)item.Properties().First().Value;
+                    tmp.Add(value);
+                }
+                //!!var randomSeq = randomSeqJson.Select(jv => (int)jv).ToArray();
+                //!!QuestRandom.SetSeq(ref tmp);
                 QuestRandom.useArrayBased = true; //????????????????????????????????????
                 var questSteps = jObject.GetValue("Steps").Value<JArray>();
 
@@ -63,7 +72,7 @@ namespace QuestUnitTest
                     var ParVisState = step.GetValue("ParVisState").Value<JArray>();
                     var PathesWeCanGo = step.GetValue("PathesWeCanGo").Value<JArray>();
                     var Answers = step.GetValue("Answers").Value<JArray>();
-
+                    var RamdomCount = step.GetValue("RandomCount").Value<int>();
                     // ---------------------------------------------
                     int i, j;
 
@@ -174,6 +183,9 @@ namespace QuestUnitTest
 
                         player.DoTransition(qp);
                     }
+
+                    // -------------------------------
+                    Assert.AreEqual(RamdomCount, QuestRandom.Index(), string.Format("Invalid Ramdom call count (step: {0})", stepcount));
                 }
             }
 

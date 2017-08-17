@@ -11,7 +11,7 @@ namespace SharpQuest
         class QuestRandomSeq
         {
             private int[] values = null;
-            private int indx = 0;
+            public int indx = 0;
 
             public QuestRandomSeq(ref int[] s)
             {
@@ -34,6 +34,10 @@ namespace SharpQuest
 
         private static QuestRandomSeq seq;
         
+        public static int Index()
+        {
+            return seq.indx;
+        }
         public static bool useArrayBased = false;
 
         public static void SetSeq(ref int[] s)
@@ -48,10 +52,10 @@ namespace SharpQuest
                 return seq.Get(max);
                 //return dict[name].Get(max);
 
-            if (name == "TCPDiapazone.GetRandom1") return max / 2;
-            if (name == "TCPDiapazone.GetRandom2") return max / 2;
-            if (name == "GetPathByProbability1") return max / 2;
-            if (name == "GetPathByProbability2") return max / 2;
+            if (name == "A") return max / 2;
+            if (name == "B") return max / 2;
+            if (name == "C") return max / 2;
+            if (name == "D") return max / 2;
             
             return rand.Next(max);
         }
