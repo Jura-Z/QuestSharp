@@ -6,3 +6,5 @@
 /Users/Iurii/Projects/mine/_Rangers/SharpQuest/SharpQuest/SharpQuest/obj/Debug/SharpQuest.pdb
 /Users/Iurii/Projects/mine/_Rangers/SharpQuest/SharpQuest/SharpQuest/bin/Debug/Newtonsoft.Json.dll
 /Users/Iurii/Projects/mine/_Rangers/SharpQuest/SharpQuest/SharpQuest/bin/Debug/Newtonsoft.Json.xml
+/Users/Iurii/Projects/mine/_Rangers/SharpQuest/SharpQuest/SharpQuest/bin/Debug/nunit.framework.dll
+/Users/Iurii/Projects/mine/_Rangers/SharpQuest/SharpQuest/SharpQuest/bin/Debug/nunit.framework.xml

@@ -636,7 +636,7 @@ namespace SharpQuest
             {
                 if (pathes[0].Probability < 1)
                 {
-                    var k = QuestRandom.Get("GetPathByProbability1", 1000);
+                    var k = QuestRandom.Get("C", 1000);
                     var t = (int)Math.Truncate(pathes[0].Probability * 1000);
                     
                     return k <= t ? pathes[0] : null;
@@ -670,7 +670,7 @@ namespace SharpQuest
                 }
             }
 
-            var cur_rndvalue = QuestRandom.Get("GetPathByProbability2", maxrnd);
+            var cur_rndvalue = QuestRandom.Get("D", maxrnd);
 
             var l = 0;
 

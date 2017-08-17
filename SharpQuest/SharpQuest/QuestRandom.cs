@@ -10,13 +10,16 @@ namespace SharpQuest
         
         class QuestRandomSeq
         {
-            private int[] values = null;
+            private List<int> values = new List<int>();
             public int indx = 0;
 
-            public QuestRandomSeq(ref int[] s)
+            public QuestRandomSeq()
             {
-                indx = 0;
-                values = s;
+            }
+
+            public void Add(int v)
+            {
+                values.Add(v);
             }
 
             public int Get(int max)
@@ -30,27 +33,21 @@ namespace SharpQuest
             }
         }
         
-        //static Dictionary<string, QuestRandomSeq> dict = new Dictionary<string, QuestRandomSeq>();
+        static Dictionary<string, QuestRandomSeq> dict = new Dictionary<string, QuestRandomSeq>();
 
         private static QuestRandomSeq seq;
+        private static int randomCallCount = 0;
         
-        public static int Index()
-        {
-            return seq.indx;
-        }
-        public static bool useArrayBased = false;
-
-        public static void SetSeq(ref int[] s)
-        {
-            seq = new QuestRandomSeq(ref s);
-        }
+        public static bool useArrayBased = true;
         
         
         public static int Get(string name, int max)
         {
+            ++randomCallCount;
+            
             if (useArrayBased)
-                return seq.Get(max);
-                //return dict[name].Get(max);
+                //return seq.Get(max);
+                return dict[name].Get(max);
 
             if (name == "A") return max / 2;
             if (name == "B") return max / 2;
@@ -58,6 +55,23 @@ namespace SharpQuest
             if (name == "D") return max / 2;
             
             return rand.Next(max);
+        }
+
+        public static void AddSeq(string name, int value)
+        {
+            if (dict.ContainsKey(name) == false)
+                dict[name] = new QuestRandomSeq();
+            dict[name].Add(value);
+        }
+
+        public static void FinishSeq()
+        {
+            
+        }
+
+        public static int RamdomCallCount()
+        {
+            return randomCallCount;
         }
     }
 }

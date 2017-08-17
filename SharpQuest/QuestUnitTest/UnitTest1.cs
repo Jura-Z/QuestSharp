@@ -32,18 +32,15 @@ namespace QuestUnitTest
                 
                 var randomSeqJson = jObject.GetValue("Random").Value<JArray>();
                 
-                var tmp = new List<int>();
                 foreach (JObject item in randomSeqJson)
                 {
                     var name = item.Properties().First().Name;
                     int value = (int)item.Properties().First().Value;
-                    tmp.Add(value);
+                    QuestRandom.AddSeq(name, value);
                 }
-                //!!var randomSeq = randomSeqJson.Select(jv => (int)jv).ToArray();
-                //!!QuestRandom.SetSeq(ref tmp);
-                QuestRandom.useArrayBased = true; //????????????????????????????????????
+                QuestRandom.FinishSeq();
+                
                 var questSteps = jObject.GetValue("Steps").Value<JArray>();
-
                 
                 questFilename = basepath + "/../../../Data/" + questFilename;
                 var q = new Quest(questFilename);
@@ -111,8 +108,8 @@ namespace QuestUnitTest
                     i = 0;
                     foreach (JValue item in StrPars)
                     {
-                        string tmp = item.ToString();
-                        Assert.AreEqual(tmp, player.ShowParameters(i), string.Format("Invalid StrPars[{0}] (step: {1})", i, stepcount));
+                        var itemStr = item.ToString();
+                        Assert.AreEqual(itemStr, player.ShowParameters(i), string.Format("Invalid StrPars[{0}] (step: {1})", i, stepcount));
                         i++;
                     }
                     /**/
@@ -185,7 +182,7 @@ namespace QuestUnitTest
                     }
 
                     // -------------------------------
-                    Assert.AreEqual(RamdomCount, QuestRandom.Index(), string.Format("Invalid Ramdom call count (step: {0})", stepcount));
+                    Assert.AreEqual(RamdomCount, QuestRandom.RamdomCallCount(), string.Format("Invalid Ramdom call count (step: {0})", stepcount));
                 }
             }
 
