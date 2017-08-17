@@ -124,7 +124,7 @@ namespace QuestUnitTest
 
                         Assert.AreEqual(index1, index2, string.Format("Invalid Answer index[{0}] (step: {1})", i, stepcount));
                         Assert.AreEqual(value1, value2, string.Format("Invalid Answer value[{0}] (step: {1})", i, stepcount));
-                        //Assert.AreEqual(number1, number2, string.Format("Invalid Answer number[{0}] (step: {1})", i, stepcount));
+                        Assert.AreEqual(number1, number2, string.Format("Invalid Answer number[{0}] (step: {1})", i, stepcount));
                         
                         i++;
                     }
