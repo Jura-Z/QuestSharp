@@ -544,39 +544,42 @@ namespace SharpQuest
             }
 
             var mixed_answers_flags = new bool[found_answers.Count];
-            for (int i = 0; i < mixed_answers_flags.Length; ++i) mixed_answers_flags[i] = true;
+            for (int i = 0; i < found_answers.Count; ++i) mixed_answers_flags[i] = true;
 
-            for (int i = 0; i < mixed_answers_flags.Length; ++i)
+            for (int i = 0; i < found_answers.Count; ++i)
             {
                 SameTextPathes.Clear();
                 var maxprobfix_answers = new List<QuestPath>();
                 var found = -1;
                 var maxprob = 0.0;
 
-                if (mixed_answers_flags[i] == false) continue;
+                if (mixed_answers_flags[i])
+                {
+                    found = i;
+
+                    for (int c = 0; c < mixed_answers_flags.Length; ++c)
+                    {
+                        if (found_answers[i].StartPathMessage.Trim() == found_answers[c].StartPathMessage.Trim())
+                        {
+                            mixed_answers_flags[c] = false;
+
+                            maxprobfix_answers.Add(found_answers[c]);
+                            if (maxprob < found_answers[c].Probability)
+                                maxprob = found_answers[c].Probability;
+                        }
+                    }
+
+                    for (int c = 0; c < maxprobfix_answers.Count; ++c)
+                    {
+                        if (maxprob <= 100 * maxprobfix_answers[c].Probability)
+                        {
+                            SameTextPathes.Add(maxprobfix_answers[c]);
+                        }
+                    }
+                }
+                else
+                    Console.Write("fail D  --  ");
                 
-                found = i;
-
-                for (int c = 0; c < mixed_answers_flags.Length; ++c)
-                {
-                    if (found_answers[i].StartPathMessage.Trim() == found_answers[c].StartPathMessage.Trim())
-                    {
-                        mixed_answers_flags[c] = false;
-
-                        maxprobfix_answers.Add(found_answers[c]);
-                        if (maxprob < found_answers[c].Probability)
-                            maxprob = found_answers[c].Probability;
-                    }
-                }
-
-                for (int c = 0; c < maxprobfix_answers.Count; ++c)
-                {
-                    if (maxprob <= 100 * maxprobfix_answers[c].Probability)
-                    {
-                        SameTextPathes.Add(maxprobfix_answers[c]);
-                    }
-                }
-
                 var PAnswer = GetPathByProbability(SameTextPathes);
                 if (PAnswer != null)
                     mixed_answers.Add(PAnswer);

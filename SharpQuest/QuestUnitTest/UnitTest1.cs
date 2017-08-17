@@ -36,7 +36,8 @@ namespace QuestUnitTest
                 {
                     var name = item.Properties().First().Name;
                     int value = (int)item.Properties().First().Value;
-                    QuestRandom.AddSeq(name, value);
+                    var max = (int)item.Properties().Last().Value;
+                    QuestRandom.AddSeq(name, value, max);
                 }
                 QuestRandom.FinishSeq();
                 
@@ -182,6 +183,17 @@ namespace QuestUnitTest
                     }
 
                     // -------------------------------
+
+                    if (QuestRandom.RamdomCallCount() != RamdomCount)
+                    {
+                        for (var ki = QuestRandom.RamdomCallCount() + 1; ki <= RamdomCount; ++ki)
+                        {
+                            Console.Write(ki + " ");
+                            QuestRandom.DebugPrint(ki);
+                        }
+                        Console.WriteLine();
+                    }
+                    
                     Assert.AreEqual(RamdomCount, QuestRandom.RamdomCallCount(), string.Format("Invalid Ramdom call count (step: {0})", stepcount));
                 }
             }

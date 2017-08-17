@@ -6,62 +6,59 @@ namespace SharpQuest
 {
     public class QuestRandom
     {
-        static Random rand = new Random();
+        public struct Element
+        {
+            public string name;
+            public int val;
+            public int max;
+
+            public override string ToString() { return string.Format("<{0}|{1} {2}>", name, val, max); }
+        }
         
         class QuestRandomSeq
         {
-            private List<int> values = new List<int>();
+            public List<Element> values = new List<Element>();
             public int indx = 0;
 
             public QuestRandomSeq()
             {
             }
 
-            public void Add(int v)
+            public void Add(string n, int v, int m)
             {
-                values.Add(v);
+                values.Add(new Element() {name =  n, val = v, max = m});
             }
 
-            public int Get(int max)
+            public int Get(string name, int max)
             {
-                if (values == null)
-                    return rand.Next(max);
-                
                 var res = values[indx++];
-                Assert.IsTrue(res < max);
-                return res;
+                
+                if (res.name == "D") Console.WriteLine("#" + randomCallCount + " " + res);
+                
+                if (res.name != name) throw new Exception("name is different");
+                if (res.max != max) throw new Exception(string.Format("max is different. '{3}' expected {0} but received {1}. randomCallCount = {2}", max, res.max, randomCallCount, name));
+                if (res.max != 0 && res.val >= res.max) throw new Exception(string.Format("val {0} >= max {1}", res.val, res.max));
+                
+                return res.val;
             }
         }
         
-        static Dictionary<string, QuestRandomSeq> dict = new Dictionary<string, QuestRandomSeq>();
-
-        private static QuestRandomSeq seq;
+        private static QuestRandomSeq seq = new QuestRandomSeq();
         private static int randomCallCount = 0;
         
-        public static bool useArrayBased = true;
         
         
         public static int Get(string name, int max)
         {
             ++randomCallCount;
             
-            if (useArrayBased)
-                //return seq.Get(max);
-                return dict[name].Get(max);
-
-            if (name == "A") return max / 2;
-            if (name == "B") return max / 2;
-            if (name == "C") return max / 2;
-            if (name == "D") return max / 2;
-            
-            return rand.Next(max);
+            return seq.Get(name, max);
+            //return max / 2;
         }
 
-        public static void AddSeq(string name, int value)
+        public static void AddSeq(string name, int value, int max)
         {
-            if (dict.ContainsKey(name) == false)
-                dict[name] = new QuestRandomSeq();
-            dict[name].Add(value);
+            seq.Add(name, value, max);
         }
 
         public static void FinishSeq()
@@ -72,6 +69,11 @@ namespace SharpQuest
         public static int RamdomCallCount()
         {
             return randomCallCount;
+        }
+
+        public static void DebugPrint(int indx)
+        {
+            Console.Write(seq.values[indx].ToString() + ", ");
         }
     }
 }
