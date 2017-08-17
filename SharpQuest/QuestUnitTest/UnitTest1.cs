@@ -17,7 +17,7 @@ namespace QuestUnitTest
             //var basepath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             var basepath = Path.GetDirectoryName(new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath);
             
-            var filename = basepath + "/../../../Data/TestPrison3.9.4.json";
+            var filename = basepath + "/../../../Data/Prison3.9.4.result";
             filename = Path.GetFullPath(filename);
 
             using (var sr = new StreamReader(filename))
@@ -32,7 +32,7 @@ namespace QuestUnitTest
                 var randomSeqJson = jObject.GetValue("Random").Value<JArray>();
                 var randomSeq = randomSeqJson.Select(jv => (int)jv).ToArray();
                 QuestRandom.SetSeq(ref randomSeq);
-                
+                QuestRandom.useArrayBased = true; //????????????????????????????????????
                 var questSteps = jObject.GetValue("Steps").Value<JArray>();
 
                 
@@ -40,8 +40,11 @@ namespace QuestUnitTest
                 var q = new Quest(questFilename);
                 var player = new QuestPlayer(q);
 
+                int stepcount = 0;
                 foreach (JObject step in questSteps)
                 {
+                    stepcount++;
+
                     var description = step.GetValue("Description").Value<string>();
 
                     var EndPathMessage = "";
@@ -71,28 +74,28 @@ namespace QuestUnitTest
                     {
                         int tmp1 = item.ToObject<int>();
                         int tmp2 = player.Pars[i];
-                        Assert.AreEqual(tmp1, tmp2);
+                        Assert.AreEqual(tmp1, tmp2, string.Format("Invalid Pars (step: {0})", stepcount));
                         i++;
                     }
                     
                     string s = player.CurrentLocation().LocationDescription;
                     s = s.Replace("\r", "");
                     description = description.Replace("\r", "");
-                    Assert.AreEqual(description, s , "Invalid description");
-
-                    Assert.AreEqual(dayspassed, player.daysPassed, "Invalid dayspassed");
-                    Assert.AreEqual(CustomCriticalMessage, player.CustomCriticalMessage);
-                    Assert.AreEqual(CurrentCriticalParameter, player.CurrentCriticalParameter);
+                    Assert.AreEqual(description, s , string.Format("Invalid description (step: {0})", stepcount));
+                    
+                    Assert.AreEqual(dayspassed, player.daysPassed, string.Format("Invalid dayspassed (step: {0})", stepcount));
+                    Assert.AreEqual(CustomCriticalMessage, player.CustomCriticalMessage, string.Format("Invalid CustomCriticalMessage (step: {0})", stepcount));
+                    Assert.AreEqual(CurrentCriticalParameter, player.CurrentCriticalParameter, string.Format("Invalid CurrentCriticalParameter(step: {0})", stepcount));
                     
                     /**/
                     // ParVisState -------------------------------------------------
                     i = 0;
-                    Assert.AreEqual(ParVisState.Count, player.ParVisState.Length);
+                    Assert.AreEqual(ParVisState.Count, player.ParVisState.Length, string.Format("Invalid ParVisState.Count(step: {0})", stepcount));
                     foreach (JValue item in ParVisState)
                     {
                         bool tmp1 = item.ToObject<bool>();
                         bool tmp2 = player.ParVisState[i];
-                        Assert.AreEqual(tmp1, tmp2);
+                        Assert.AreEqual(tmp1, tmp2, string.Format("Invalid ParVisState [{0}](step: {1})", i, stepcount));
                         i++;
                     }
                     // StrPars -------------------------------------------------
@@ -100,14 +103,14 @@ namespace QuestUnitTest
                     foreach (JValue item in StrPars)
                     {
                         string tmp = item.ToString();
-                        Assert.AreEqual(tmp, player.ShowParameters(i));
+                        Assert.AreEqual(tmp, player.ShowParameters(i), string.Format("Invalid StrPars[{0}] (step: {1})", i, stepcount));
                         i++;
                     }
                     /**/
 
                     // Answers --------------------------------
                     var trans = player.PossibleTransitions();
-                    Assert.AreEqual(Answers.Count, trans.Count);
+                    Assert.AreEqual(Answers.Count, trans.Count, string.Format("Invalid Answers.Count (step: {0})", stepcount));
                     i = 0;
                     foreach (JObject item in Answers)
                     {
@@ -119,9 +122,9 @@ namespace QuestUnitTest
                         string value2 = trans[i].StartPathMessage;
                         int number2 = trans[i].PathIndx + 1;
 
-                        Assert.AreEqual(index1, index2);
-                        Assert.AreEqual(value1, value2);
-                        Assert.AreEqual(number1, number2);
+                        Assert.AreEqual(index1, index2, string.Format("Invalid Answer index[{0}] (step: {1})", i, stepcount));
+                        Assert.AreEqual(value1, value2, string.Format("Invalid Answer value[{0}] (step: {1})", i, stepcount));
+                        //Assert.AreEqual(number1, number2, string.Format("Invalid Answer number[{0}] (step: {1})", i, stepcount));
                         
                         i++;
                     }
@@ -129,10 +132,10 @@ namespace QuestUnitTest
                     i = 0;
                     j = 0;
 
-                    Assert.AreEqual(PathesWeCanGo.Count, player.quest.LocationsValue);
+                    Assert.AreEqual(PathesWeCanGo.Count, player.quest.LocationsValue, string.Format("Invalid PathesWeCanGo.Locations count (step: {0})", stepcount));
                     foreach (JArray items in PathesWeCanGo)
                     {
-                        Assert.AreEqual(items.Count, player.quest.PathesValue);
+                        Assert.AreEqual(items.Count, player.quest.PathesValue, string.Format("Invalid PathesWeCanGo.Paths count (step: {0})", stepcount));
                         j = 0;
                         foreach (JValue item in items)
                         {
@@ -140,7 +143,7 @@ namespace QuestUnitTest
                             int tmp1 = item.ToObject<int>();
                             int tmp2 = player.PathesWeCanGo[i, j];
 
-                            Assert.AreEqual(tmp1, tmp2, string.Format("invalid item  [{0}, {1}]", i, j));
+                            Assert.AreEqual(tmp1, tmp2, string.Format("Invalid PathesWeCanGo[{0}, {1}] (step: {0})", i, j, stepcount));
                             j++;
                         }
                         i++;
@@ -164,8 +167,8 @@ namespace QuestUnitTest
                         string step_string = Answer.GetValue("Value").Value<string>();
 
                         QuestPath qp = trans[step_index - 1];
-                        Assert.AreEqual(EndPathMessage, qp.EndPathMessage);
-                        Assert.AreEqual(step_string, qp.StartPathMessage);
+                        Assert.AreEqual(EndPathMessage, qp.EndPathMessage, string.Format("Invalid EndPathMessage (step: {0})", stepcount));
+                        Assert.AreEqual(step_string, qp.StartPathMessage, string.Format("Invalid StartPathMessage (step: {0})", stepcount));
 
                         Console.WriteLine("Step done: {0}", qp);
 
