@@ -19,6 +19,7 @@ namespace SharpQuest
         {
             public List<Element> values = new List<Element>();
             public int indx = 0;
+            Random rand = new Random();
 
             public QuestRandomSeq()
             {
@@ -31,9 +32,10 @@ namespace SharpQuest
 
             public int Get(string name, int max)
             {
-                var res = values[indx++];
+                if (values == null || values.Count == 0)
+                    return rand.Next(max);
                 
-                if (res.name == "D") Console.WriteLine("#" + randomCallCount + " " + res);
+                var res = values[indx++];
                 
                 if (res.name != name) throw new Exception("name is different");
                 if (res.max != max) throw new Exception(string.Format("max is different. '{3}' expected {0} but received {1}. randomCallCount = {2}", max, res.max, randomCallCount, name));

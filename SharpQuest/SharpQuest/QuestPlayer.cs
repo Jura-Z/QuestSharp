@@ -522,6 +522,16 @@ namespace SharpQuest
 
         public List<QuestPath> PossibleTransitions()
         {
+            var r = PossibleTransitionsInner();
+            if (r.Count == 1 && r[0].StartPathMessage == "")
+            {
+                DoTransition(r[0]);
+            }
+            return PossibleTransitionsInner();
+        }
+        
+        List<QuestPath> PossibleTransitionsInner()
+        {
             var result = new List<QuestPath>();
 
             var SameTextPathes = new List<QuestPath>();
@@ -577,8 +587,6 @@ namespace SharpQuest
                         }
                     }
                 }
-                else
-                    Console.Write("fail D  --  ");
                 
                 var PAnswer = GetPathByProbability(SameTextPathes);
                 if (PAnswer != null)

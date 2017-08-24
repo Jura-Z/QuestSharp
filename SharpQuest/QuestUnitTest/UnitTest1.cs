@@ -15,6 +15,8 @@ namespace QuestUnitTest
         [Test]
         public void TestMethod1()
         {
+            int stepCounter = 0;
+            
             //var basepath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             var basepath = Path.GetDirectoryName(new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath);
             
@@ -53,16 +55,20 @@ namespace QuestUnitTest
                     stepcount++;
 
                     var description = step.GetValue("Description").Value<string>();
+                    description = description.Replace("\r", "");
 
                     var EndPathMessage = "";
                     try
                     {
                         EndPathMessage = step.GetValue("EndPathMessage").Value<string>();
+                        EndPathMessage = EndPathMessage.Replace("\r", "");
                     }
                     catch { }
 
                     var dayspassed = step.GetValue("dayspassed").Value<int>();
                     var CustomCriticalMessage = step.GetValue("CustomCriticalMessage").Value<string>();
+                    CustomCriticalMessage = CustomCriticalMessage.Replace("\r", "");
+
                     var CurrentCriticalParameter = step.GetValue("CurrentCriticalParameter").Value<int>();
 
                     var StrPars = step.GetValue("StrPars").Value<JArray>();
@@ -177,7 +183,7 @@ namespace QuestUnitTest
                         Assert.AreEqual(EndPathMessage, qp.EndPathMessage, string.Format("Invalid EndPathMessage (step: {0})", stepcount));
                         Assert.AreEqual(step_string, qp.StartPathMessage, string.Format("Invalid StartPathMessage (step: {0})", stepcount));
 
-                        Console.WriteLine("Step done: {0}", qp);
+                        Console.WriteLine("#{1} Step done: {0}", qp, ++stepCounter);
 
                         player.DoTransition(qp);
                     }
