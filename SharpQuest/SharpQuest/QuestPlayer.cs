@@ -260,10 +260,12 @@ namespace SharpQuest
             return false;
         }
 
+        public bool successFlag = false;
+        public bool failFlag = false;
+        
         void WeAreInTheLocation()
         {
-            var successFlag = false;
-
+            
 //            var failFlag = IsGamePathParameterFail(lastpathindex, Pars, UndoPar[UndoIndex]);
 //            if (!failFlag)
 //                successFlag = IsGamePathParameterSuccess(lastpathindex, Pars, UndoPar[UndoIndex]);
@@ -303,7 +305,7 @@ namespace SharpQuest
             daysPassed += quest.Locations[currentLocationIndx].DaysCost;
 
             successFlag = false;
-            var failFlag = IsGamePathParameterFail(currentLocationIndx, Pars, tpars);
+            failFlag = IsGamePathParameterFail(currentLocationIndx, Pars, tpars);
             if (!failFlag)
                 successFlag = IsGamePathParameterSuccess(currentLocationIndx, Pars, tpars);
 

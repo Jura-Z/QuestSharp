@@ -98,6 +98,9 @@ namespace QuestUnitTest
                     
                     Assert.AreEqual(dayspassed, player.daysPassed, string.Format("Invalid dayspassed (step: {0})", stepcount));
                     Assert.AreEqual(CustomCriticalMessage, player.CustomCriticalMessage, string.Format("Invalid CustomCriticalMessage (step: {0})", stepcount));
+
+                    if (CurrentCriticalParameter > 0)
+                        CurrentCriticalParameter--;
                     Assert.AreEqual(CurrentCriticalParameter, player.CurrentCriticalParameter, string.Format("Invalid CurrentCriticalParameter(step: {0})", stepcount));
                     
                     /**/
@@ -201,6 +204,9 @@ namespace QuestUnitTest
                     }
                     
                     Assert.AreEqual(RamdomCount, QuestRandom.RamdomCallCount(), string.Format("Invalid Ramdom call count (step: {0})", stepcount));
+                    
+                    if (player.failFlag || player.successFlag)
+                        return;
                 }
             }
 
