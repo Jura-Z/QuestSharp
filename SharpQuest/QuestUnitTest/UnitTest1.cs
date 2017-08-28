@@ -68,8 +68,16 @@ namespace QuestUnitTest
                     var dayspassed = step.GetValue("dayspassed").Value<int>();
                     var CustomCriticalMessage = step.GetValue("CustomCriticalMessage").Value<string>();
                     CustomCriticalMessage = CustomCriticalMessage.Replace("\r", "");
-
                     var CurrentCriticalParameter = step.GetValue("CurrentCriticalParameter").Value<int>();
+
+                    var CriticalMessage = "";
+                    try
+                    {
+                        CriticalMessage = step.GetValue("CriticalMessage").Value<string>();
+                        CriticalMessage = CriticalMessage.Replace("\r", "");
+                    }
+                    catch { }
+                    
 
                     var StrPars = step.GetValue("StrPars").Value<JArray>();
                     var Pars = step.GetValue("Pars").Value<JArray>();
@@ -123,6 +131,13 @@ namespace QuestUnitTest
                         i++;
                     }
                     /**/
+
+                    if (player.failFlag || player.successFlag)
+                    {
+                        Assert.IsTrue(CriticalMessage != "");
+                        Assert.AreEqual(CriticalMessage.Trim(), player.quest.Pars[CurrentCriticalParameter].CriticalMessage);
+                        return;
+                    }
 
                     // Answers --------------------------------
                     var trans = player.PossibleTransitions();
@@ -205,8 +220,6 @@ namespace QuestUnitTest
                     
                     Assert.AreEqual(RamdomCount, QuestRandom.RamdomCallCount(), string.Format("Invalid Ramdom call count (step: {0})", stepcount));
                     
-                    if (player.failFlag || player.successFlag)
-                        return;
                 }
             }
 
