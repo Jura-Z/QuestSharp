@@ -12,16 +12,43 @@ namespace QuestUnitTest
     [TestFixture]
     public class UnitTest1
     {
+        string basepath = Path.GetDirectoryName(new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath);
         [Test]
         public void TestMethod1()
         {
-            int stepCounter = 0;
-            
-            //var basepath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             var basepath = Path.GetDirectoryName(new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+            basepath += "/../../../Data/";
+            basepath = Path.GetFullPath(basepath);
+
+            //TestQuest(basepath, "Prison3.9.4(11).result");
+
+            DirectoryInfo d = new DirectoryInfo(basepath);
+
+            foreach (var file in d.GetFiles("*.result"))
+            {
+            //    TestQuest(basepath, file.Name);
+            }
+        }
+        [TestCase("Prison3.9.4.result")]
+        [TestCase("Prison3.9.4(1).result")]
+        [TestCase("Prison3.9.4(2).result")]
+        [TestCase("Prison3.9.4(3).result")]
+        [TestCase("Prison3.9.4(4).result")]
+        [TestCase("Prison3.9.4(5).result")]
+        [TestCase("Prison3.9.4(6).result")]
+        [TestCase("Prison3.9.4(7).result")]
+        [TestCase("Prison3.9.4(8).result")]
+        [TestCase("Prison3.9.4(9).result")]
+        [TestCase("Prison3.9.4(10).result")]
+        [TestCase("Prison3.9.4(11).result")]
+        public void TestQuest(string filename)
+        { 
+            int stepCounter = 0;
+            var basepath = Path.GetDirectoryName(new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+            basepath += "/../../../Data/";
+            basepath = Path.GetFullPath(basepath);
+            filename = basepath + filename;
             
-            var filename = basepath + "/../../../Data/Prison3.9.4.result";
-            filename = Path.GetFullPath(filename);
 
             using (var sr = new StreamReader(filename))
             {
@@ -33,7 +60,8 @@ namespace QuestUnitTest
                 var userName = jObject.GetValue("UserName").Value<string>();
                 
                 var randomSeqJson = jObject.GetValue("Random").Value<JArray>();
-                
+
+                QuestRandom.Clear();
                 foreach (JObject item in randomSeqJson)
                 {
                     var name = item.Properties().First().Name;
@@ -45,7 +73,7 @@ namespace QuestUnitTest
                 
                 var questSteps = jObject.GetValue("Steps").Value<JArray>();
                 
-                questFilename = basepath + "/../../../Data/" + questFilename;
+                questFilename = basepath + questFilename;
                 var q = new Quest(questFilename);
                 var player = new QuestPlayer(q);
 
@@ -95,7 +123,7 @@ namespace QuestUnitTest
                     {
                         int tmp1 = item.ToObject<int>();
                         int tmp2 = player.Pars[i];
-                        Assert.AreEqual(tmp1, tmp2, string.Format("Invalid Pars (step: {0})", stepcount));
+                        Assert.AreEqual(tmp1, tmp2, string.Format("Invalid Pars[{1}] (step: {0})", stepcount, i));
                         i++;
                     }
                     

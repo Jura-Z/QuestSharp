@@ -25,6 +25,11 @@ namespace SharpQuest
             {
             }
 
+            public void Clear()
+            {
+                values.Clear();
+                indx = 0;
+            }
             public void Add(string n, int v, int m)
             {
                 values.Add(new Element() {name =  n, val = v, max = m});
@@ -63,6 +68,12 @@ namespace SharpQuest
             seq.Add(name, value, max);
         }
 
+
+        public static void Clear()
+        {
+            seq.Clear();
+            randomCallCount = 0;
+        }
         public static void FinishSeq()
         {
             
