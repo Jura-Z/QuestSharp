@@ -262,25 +262,26 @@ namespace SharpQuest
 
         public bool successFlag = false;
         public bool failFlag = false;
-        
+        public int[] UndoPar = new int[Quest.maxparameters];
+
         void WeAreInTheLocation()
         {
-            
-//            var failFlag = IsGamePathParameterFail(lastpathindex, Pars, UndoPar[UndoIndex]);
-//            if (!failFlag)
-//                successFlag = IsGamePathParameterSuccess(lastpathindex, Pars, UndoPar[UndoIndex]);
-//
-//            if (successFlag)
-//            {
-//                System.Console.WriteLine("ShowSuccess");
-//                return;
-//            }
-//
-//            if (failFlag) 
-//            {
-//                System.Console.WriteLine("ShowFail");
-//                return;
-//            }
+
+            failFlag = IsGamePathParameterFail(lastpathindex, Pars, UndoPar);
+            if (!failFlag)
+                successFlag = IsGamePathParameterSuccess(lastpathindex, Pars, UndoPar);
+
+            if (successFlag)
+            {
+                System.Console.WriteLine("ShowSuccess");
+                return;
+            }
+
+            if (failFlag) 
+            {
+                System.Console.WriteLine("ShowFail");
+                return;
+            }
 
             QuestParameterDelta[] delta = new QuestParameterDelta[Quest.maxparameters];
             int[] tpars = new int[Quest.maxparameters];
@@ -366,7 +367,11 @@ namespace SharpQuest
                         else
                         {
                             if (delta[i].DeltaPercentFlag)
-                                tpars[i] = Pars[i] + (int) Math.Round((Pars[i] / 100.0f) * (delta[i].delta));
+                            {
+                                float dbl = (Pars[i] / 100.0f) * delta[i].delta;
+                                tpars[i] = Pars[i] + (int)Math.Round(dbl);
+                            }
+                                
                             else
                                 tpars[i] = Pars[i] + delta[i].delta;
                         }
@@ -736,6 +741,8 @@ namespace SharpQuest
             daysPassed += quest.Paths[pathindex].dayscost;
 
             //makedo;
+            for (var i = 0; i < Quest.maxparameters; ++i)
+                UndoPar[i] = Pars[i];
 
             currentLocationIndx = quest.Paths[pathindex].ToLocation;
 

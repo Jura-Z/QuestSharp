@@ -129,11 +129,6 @@ namespace QuestUnitTest
                         i++;
                     }
                     
-                    string s = player.CurrentLocation().LocationDescription;
-                    s = s.Replace("\r", "");
-                    description = description.Replace("\r", "");
-                    Assert.AreEqual(description, s , string.Format("Invalid description (step: {0})", stepcount));
-                    
                     Assert.AreEqual(dayspassed, player.daysPassed, string.Format("Invalid dayspassed (step: {0})", stepcount));
                     Assert.AreEqual(CustomCriticalMessage, player.CustomCriticalMessage, string.Format("Invalid CustomCriticalMessage (step: {0})", stepcount));
 
@@ -168,6 +163,12 @@ namespace QuestUnitTest
                         Assert.AreEqual(CriticalMessage.Trim(), player.quest.Pars[CurrentCriticalParameter].CriticalMessage);
                         return;
                     }
+                    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    string s = player.CurrentLocation().LocationDescription;
+                    s = s.Replace("\r", "");
+                    description = description.Replace("\r", "");
+                    Assert.AreEqual(description, s, string.Format("Invalid description (step: {0})", stepcount));
+                    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
                     // Answers --------------------------------
                     var trans = player.PossibleTransitions();
