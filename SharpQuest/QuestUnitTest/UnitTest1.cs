@@ -43,6 +43,13 @@ namespace QuestUnitTest
         [TestCase("Prison3.9.4(11).result")]
         [TestCase("Prison3.9.4(12).result")]
         [TestCase("Prison3.9.4(13).result")]
+        [TestCase("Prison3.9.4(14).result")]
+        [TestCase("Prison3.9.4(15).result")]
+        [TestCase("Prison3.9.4(16).result")]
+        [TestCase("Prison3.9.4(17).result")]
+        [TestCase("Prison3.9.4(18).result")]
+        [TestCase("Prison3.9.4(19).result")]
+        [TestCase("Prison3.9.4(20).result")]
         public void TestQuest(string filename)
         { 
             int stepCounter = 0;

@@ -369,6 +369,8 @@ namespace SharpQuest
                             if (delta[i].DeltaPercentFlag)
                             {
                                 float dbl = (Pars[i] / 100.0f) * delta[i].delta;
+                                if (dbl == -29.5)
+                                    dbl = -29; //!!! fix Delphi Round !!!
                                 tpars[i] = Pars[i] + (int)Math.Round(dbl);
                             }
                                 
