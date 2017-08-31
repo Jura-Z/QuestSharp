@@ -12,7 +12,41 @@ namespace QuestUnitTest
     [TestFixture]
     public class UnitTest1
     {
-        string basepath = Path.GetDirectoryName(new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+        [Test]
+        public void TestExpr()
+        {
+            int[] Pars = new int[Quest.maxparameters];
+            for (int i = 0; i < Pars.Count(); i++)
+                Pars[i] = i;
+
+            string tstr = "";
+            int index = 0;
+
+            QuestRandom.Clear();
+            QuestRandom.AddSeq("A", 10, 31);
+            QuestRandom.AddSeq("B", 13, 31);
+            QuestRandom.AddSeq("A", 16, 19);
+            QuestRandom.AddSeq("B", 13, 19);
+            QuestRandom.AddSeq("A", 2, 19);
+            QuestRandom.AddSeq("B", 2, 19);
+            QuestRandom.FinishSeq();
+
+
+            tstr = "[60..90]";
+            var parse = new QuestCalcParse(tstr, index, Pars);
+            Assert.IsFalse(parse.error);
+            Assert.AreEqual(73, parse.answer);
+
+            tstr = "[81..99]";
+            parse = new QuestCalcParse(tstr, index, Pars);
+            Assert.IsFalse(parse.error);
+            Assert.AreEqual(94, parse.answer);
+
+            tstr = "[41..59]";
+            parse = new QuestCalcParse(tstr, index, Pars);
+            Assert.IsFalse(parse.error);
+            Assert.AreEqual(43, parse.answer);
+        }
         [TestCase("Bank.result")]
         [TestCase("Boat.result")]
         [TestCase("Bondiana.result")]

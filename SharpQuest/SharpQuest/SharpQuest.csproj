@@ -59,6 +59,7 @@
     <Compile Include="QuestPlayer.cs" />
     <Compile Include="QuestRandom.cs" />
     <Compile Include="QuestStreamReader.cs" />
+    <Compile Include="QuestTCPVariant.cs" />
     <Compile Include="QuestTCPRange.cs" />
     <Compile Include="QuestUtils.cs" />
     <Compile Include="QuestValuesList.cs" />
