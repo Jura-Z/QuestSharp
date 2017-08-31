@@ -50,7 +50,7 @@ namespace SharpQuest
             {
                 int val = pars[i];
                 string s = (val < 0) ? string.Format("(0{0})", val) : string.Format("{0}", val);
-                result = StirngReplace(result, string.Format("[p{0}]", i), s);
+                result = StirngReplace(result, string.Format("[p{0}]", i+1), s);
             }
             return result;
         }

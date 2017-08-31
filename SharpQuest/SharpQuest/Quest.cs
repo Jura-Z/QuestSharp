@@ -279,6 +279,8 @@ namespace SharpQuest
         public static string ProcessString(string text)
         {
             text = text.Replace("<ToPlanet>", "Магадан");
+            text = text.Replace("<clr>", "");
+            text = text.Replace("<clrEnd>", "");
             return text;
         }
     }
