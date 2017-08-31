@@ -13,21 +13,46 @@ namespace QuestUnitTest
     public class UnitTest1
     {
         string basepath = Path.GetDirectoryName(new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath);
-        [Test]
-        public void TestMethod1()
+        [TestCase("Bank.result")]
+        [TestCase("Boat.result")]
+        [TestCase("Bondiana.result")]
+        [TestCase("Build.result")]
+        [TestCase("Casino.result")]
+        [TestCase("Commando.result")]
+        [TestCase("Diamond.result")]
+        [TestCase("Diehard.result")]
+        [TestCase("Energy.result")]
+        [TestCase("Examen.result")]
+        [TestCase("Fishing.result")]
+        [TestCase("Galaxy.result")]
+        [TestCase("Gladiator.result")]
+        [TestCase("Gobsaur.result")]
+        [TestCase("Hachball.result")]
+        [TestCase("Ikebana.result")]
+        [TestCase("Menzols.result")]
+        [TestCase("Murder.result")]
+        [TestCase("Newflora.result")]
+        [TestCase("Penetrator.result")]
+        [TestCase("Poroda.result")]
+        [TestCase("Prison.result")]
+        [TestCase("Rush.result")]
+        [TestCase("Siege.result")]
+        [TestCase("Spy.result")]
+        [TestCase("Tomb.result")]
+        public void TestOther(string filename)
         {
             var basepath = Path.GetDirectoryName(new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath);
-            basepath += "/../../../Data/";
+            basepath += "/../../../Data/Other/";
             basepath = Path.GetFullPath(basepath);
-
-            //TestQuest(basepath, "Prison3.9.4(11).result");
-
+            TestQuest(basepath, filename);
+            /*
             DirectoryInfo d = new DirectoryInfo(basepath);
 
             foreach (var file in d.GetFiles("*.result"))
             {
-            //    TestQuest(basepath, file.Name);
+                TestQuest(basepath, file.Name);
             }
+            */
         }
         [TestCase("Prison3.9.4.result")]
         [TestCase("Prison3.9.4(1).result")]
@@ -51,11 +76,15 @@ namespace QuestUnitTest
         [TestCase("Prison3.9.4(19).result")]
         [TestCase("Prison3.9.4(20).result")]
         public void TestQuest(string filename)
-        { 
-            int stepCounter = 0;
+        {
             var basepath = Path.GetDirectoryName(new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath);
             basepath += "/../../../Data/";
             basepath = Path.GetFullPath(basepath);
+            TestQuest(basepath, filename);
+        }
+        public void TestQuest(string basepath, string filename)
+        {
+            int stepCounter = 0;
             filename = basepath + filename;
             
 
