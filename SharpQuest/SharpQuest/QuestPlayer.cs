@@ -453,6 +453,10 @@ namespace SharpQuest
             var tstr = quest.Paths[pathIndx].LogicExpression.Trim();
             if (tstr != "")
             {
+                QuestCalcParse parse = new QuestCalcParse(tstr, 0, Pars);
+                if ((parse.answer == 0) && (!parse.error))
+                    return false;
+
 //                    parse = TCalcParse.Create;
 ////          parse.AssignAndPreprocess(LogicExpression.Text,1); // 1 - не имееет значения
 //                    parse.internal_str = parse.ConvertToInternal(tstr);
@@ -555,8 +559,10 @@ namespace SharpQuest
             if (r.Count == 1 && r[0].StartPathMessage == "")
             {
                 DoTransition(r[0]);
+                return PossibleTransitions();
             }
-            return PossibleTransitionsInner();
+            else
+                return PossibleTransitionsInner();
         }
         
         List<QuestPath> PossibleTransitionsInner()

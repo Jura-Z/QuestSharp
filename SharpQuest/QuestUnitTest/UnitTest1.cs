@@ -38,6 +38,9 @@ namespace QuestUnitTest
 
             QuestRandom.AddSeq("A", 1, 5);
             QuestRandom.AddSeq("B", 1, 5);
+
+            QuestRandom.AddSeq("A", 6, 20);
+            QuestRandom.AddSeq("B", 18, 20);
             QuestRandom.FinishSeq();
 
 
@@ -61,6 +64,13 @@ namespace QuestUnitTest
             parse = new QuestCalcParse(tstr, index, Pars);
             Assert.IsFalse(parse.error);
             Assert.AreEqual(342, parse.answer);
+
+            
+            tstr = "[p4]*10>20+[p5]*0,8+[1..20]";
+            Pars[4] = 100;
+            parse = new QuestCalcParse(tstr, index, Pars);
+            Assert.IsFalse(parse.error);
+            Assert.AreEqual(0, parse.answer);
 
         }
         [TestCase("Bank.result")]
@@ -200,9 +210,28 @@ namespace QuestUnitTest
                     var ParVisState = step.GetValue("ParVisState").Value<JArray>();
                     var PathesWeCanGo = step.GetValue("PathesWeCanGo").Value<JArray>();
                     var Answers = step.GetValue("Answers").Value<JArray>();
-                    var RamdomCount = step.GetValue("RandomCount").Value<int>();
+                    var RandomCount = step.GetValue("RandomCount").Value<int>();
                     // ---------------------------------------------
                     int i, j;
+
+                    if (CurrentCriticalParameter > 0)
+                        CurrentCriticalParameter--;
+                    if (player.failFlag || player.successFlag)
+                    {
+                        Assert.IsTrue(CriticalMessage != "");
+                        Assert.AreEqual(CriticalMessage.Trim(), player.quest.Pars[CurrentCriticalParameter].CriticalMessage);
+                        return;
+                    }
+
+                    var trans = player.PossibleTransitions();
+
+                    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    string s = player.CurrentLocation().LocationDescription;
+                    s = s.Replace("\r", "");
+                    description = description.Replace("\r", "");
+                    Assert.AreEqual(description, s, string.Format("Invalid description (step: {0})", stepcount));
+                    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
                     // Pars -------------------------------------------------
                     i = 0;
@@ -218,8 +247,6 @@ namespace QuestUnitTest
                     Assert.AreEqual(dayspassed, player.daysPassed, string.Format("Invalid dayspassed (step: {0})", stepcount));
                     Assert.AreEqual(CustomCriticalMessage, player.CustomCriticalMessage, string.Format("Invalid CustomCriticalMessage (step: {0})", stepcount));
 
-                    if (CurrentCriticalParameter > 0)
-                        CurrentCriticalParameter--;
                     Assert.AreEqual(CurrentCriticalParameter, player.CurrentCriticalParameter, string.Format("Invalid CurrentCriticalParameter(step: {0})", stepcount));
                     
                     /**/
@@ -243,21 +270,6 @@ namespace QuestUnitTest
                     }
                     /**/
 
-                    if (player.failFlag || player.successFlag)
-                    {
-                        Assert.IsTrue(CriticalMessage != "");
-                        Assert.AreEqual(CriticalMessage.Trim(), player.quest.Pars[CurrentCriticalParameter].CriticalMessage);
-                        return;
-                    }
-                    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    string s = player.CurrentLocation().LocationDescription;
-                    s = s.Replace("\r", "");
-                    description = description.Replace("\r", "");
-                    Assert.AreEqual(description, s, string.Format("Invalid description (step: {0})", stepcount));
-                    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-                    // Answers --------------------------------
-                    var trans = player.PossibleTransitions();
                     Assert.AreEqual(Answers.Count, trans.Count, string.Format("Invalid Answers.Count (step: {0})", stepcount));
                     i = 0;
                     foreach (JObject item in Answers)
@@ -327,9 +339,9 @@ namespace QuestUnitTest
 
                     // -------------------------------
 
-                    if (QuestRandom.RamdomCallCount() != RamdomCount)
+                    if (QuestRandom.RamdomCallCount() != RandomCount)
                     {
-                        for (var ki = QuestRandom.RamdomCallCount() + 1; ki <= RamdomCount; ++ki)
+                        for (var ki = QuestRandom.RamdomCallCount() + 1; ki <= RandomCount; ++ki)
                         {
                             Console.Write(ki + " ");
                             QuestRandom.DebugPrint(ki);
@@ -337,7 +349,7 @@ namespace QuestUnitTest
                         Console.WriteLine();
                     }
                     
-                    Assert.AreEqual(RamdomCount, QuestRandom.RamdomCallCount(), string.Format("Invalid Ramdom call count (step: {0})", stepcount));
+                    Assert.AreEqual(RandomCount, QuestRandom.RamdomCallCount(), string.Format("Invalid Ramdom call count (step: {0})", stepcount));
                     
                 }
             }
