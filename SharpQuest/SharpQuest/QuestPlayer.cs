@@ -297,10 +297,13 @@ namespace SharpQuest
             //Печатаем текст локации,если все нормально
             if (quest.Locations[currentLocationIndx].VoidLocation == false)
             {
-                quest.Locations[currentLocationIndx].FindLocationDescription(Pars);
-//                SDTcall(
-//                    FixStringValueParameters(trim(PlayGame.Locations[locationindex].LocationDescription.text), true),
-//                    false);
+                string tmp = quest.Locations[currentLocationIndx].FindLocationDescription(Pars);
+                tmp = quest.ProcessString(tmp, Pars);
+                quest.Locations[currentLocationIndx].LocationDescription = tmp;
+
+                //                SDTcall(
+                //                    FixStringValueParameters(trim(PlayGame.Locations[locationindex].LocationDescription.text), true),
+                //                    false);
             }
 
             daysPassed += quest.Locations[currentLocationIndx].DaysCost;
@@ -614,7 +617,10 @@ namespace SharpQuest
                 {
                     if (mixed_answers[i].StartPathMessage.Trim() != "")
                     {
-                        result.Add(mixed_answers[i]);
+                        QuestPath tmp = mixed_answers[i];
+                        tmp.StartPathMessage = quest.ProcessString(tmp.StartPathMessage, Pars);
+                        tmp.EndPathMessage = quest.ProcessString(tmp.EndPathMessage, Pars);
+                        result.Add(tmp);
                         //AddAnswer(mixed_answers[i].i, mixed_answers[i].text, mixed_answers[i].GatesOk);
                     }
                 }

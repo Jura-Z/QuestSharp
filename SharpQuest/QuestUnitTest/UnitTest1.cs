@@ -29,6 +29,15 @@ namespace QuestUnitTest
             QuestRandom.AddSeq("B", 13, 19);
             QuestRandom.AddSeq("A", 2, 19);
             QuestRandom.AddSeq("B", 2, 19);
+
+            QuestRandom.AddSeq("A", 2, 5);
+            QuestRandom.AddSeq("B", 2, 5);
+
+            QuestRandom.AddSeq("A", 3, 5);
+            QuestRandom.AddSeq("B", 3, 5);
+
+            QuestRandom.AddSeq("A", 1, 5);
+            QuestRandom.AddSeq("B", 1, 5);
             QuestRandom.FinishSeq();
 
 
@@ -46,6 +55,13 @@ namespace QuestUnitTest
             parse = new QuestCalcParse(tstr, index, Pars);
             Assert.IsFalse(parse.error);
             Assert.AreEqual(43, parse.answer);
+
+            // 21+3*100+2*10+1;
+            tstr = "[p22]+[0..4]*100+[0..4]*10+[0..4]";
+            parse = new QuestCalcParse(tstr, index, Pars);
+            Assert.IsFalse(parse.error);
+            Assert.AreEqual(342, parse.answer);
+
         }
         [TestCase("Bank.result")]
         [TestCase("Boat.result")]
@@ -254,6 +270,8 @@ namespace QuestUnitTest
                         string value2 = trans[i].StartPathMessage;
                         int number2 = trans[i].PathIndx + 1;
 
+                        value1 = value1.Replace("\r", "");
+                        value2 = value2.Replace("\r", "");
                         Assert.AreEqual(index1, index2, string.Format("Invalid Answer index[{0}] (step: {1})", i, stepcount));
                         Assert.AreEqual(value1, value2, string.Format("Invalid Answer value[{0}] (step: {1})", i, stepcount));
                         Assert.AreEqual(number1, number2, string.Format("Invalid Answer number[{0}] (step: {1})", i, stepcount));

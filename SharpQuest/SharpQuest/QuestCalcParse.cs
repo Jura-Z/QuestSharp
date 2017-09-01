@@ -43,7 +43,7 @@ namespace SharpQuest
             }
             if (calc_error) error = true;
         }
-        private string InsertParValues(string str, int[] pars)
+        public static string InsertParValues(string str, int[] pars)
         {
             string result = str;
             for (int i = 0; i < pars.Length; i++)
@@ -76,8 +76,8 @@ namespace SharpQuest
                             calc_error = true;
                             return result;
                         }
-                        string left = str.Substring(0, c-1);
-                        string right = str.Substring(c + 1, lenexpr-c);
+                        string left = str.Substring(0, c);
+                        string right = str.Substring(c+1, lenexpr-c-1);
 
                         QuestTCPVariant rf = Calc(right);
                         if (calc_error) return result;
@@ -88,26 +88,27 @@ namespace SharpQuest
                         try
                         {
                             char ch = str[c];
-                            if (c == '+') OpAdd(lf, rf, ref result);
-                            if (c == '-') OpSub(lf, rf, ref result);
-                            if (c == '*') OpMul(lf, rf, ref result);
-                            if (c == '/') OpDiv(lf, rf, ref result);
-                            if (c == 'f') OpDivTrunc(lf, rf, ref result);
-                            if (c == 'g') OpMod(lf, rf, ref result);
-                            if (c == '$') OpTo(lf, rf, ref result);
-                            if (c == '#') OpIn(lf, rf, ref result);
-                            if (c == '>') OpHi(lf, rf, ref result);
-                            if (c == '<') OpLo(lf, rf, ref result);
-                            if (c == 'c') OpHiEq(lf, rf, ref result);
-                            if (c == 'b') OpLoEq(lf, rf, ref result);
-                            if (c == 'e') OpNotEq(lf, rf, ref result);
-                            if (c == '=') OpEq(lf, rf, ref result);
-                            if (c == '&') OpAnd(lf, rf, ref result);
-                            if (c == '|') OpOr(lf, rf, ref result);
+                            if (ch == '+') OpAdd(lf, rf, ref result);
+                            if (ch == '-') OpSub(lf, rf, ref result);
+                            if (ch == '*') OpMul(lf, rf, ref result);
+                            if (ch == '/') OpDiv(lf, rf, ref result);
+                            if (ch == 'f') OpDivTrunc(lf, rf, ref result);
+                            if (ch == 'g') OpMod(lf, rf, ref result);
+                            if (ch == '$') OpTo(lf, rf, ref result);
+                            if (ch == '#') OpIn(lf, rf, ref result);
+                            if (ch == '>') OpHi(lf, rf, ref result);
+                            if (ch == '<') OpLo(lf, rf, ref result);
+                            if (ch == 'c') OpHiEq(lf, rf, ref result);
+                            if (ch == 'b') OpLoEq(lf, rf, ref result);
+                            if (ch == 'e') OpNotEq(lf, rf, ref result);
+                            if (ch == '=') OpEq(lf, rf, ref result);
+                            if (ch == '&') OpAnd(lf, rf, ref result);
+                            if (ch == '|') OpOr(lf, rf, ref result);
 
                         }
                         catch
                         {
+                            calc_error = true;
                         }
                     }
                 }
@@ -298,7 +299,7 @@ namespace SharpQuest
             }
             return cnt == 0;
         }
-        private string StirngReplace(string str, string oStr, string nStr)
+        private static string StirngReplace(string str, string oStr, string nStr)
         {
             return str.Replace(oStr, nStr);
         }

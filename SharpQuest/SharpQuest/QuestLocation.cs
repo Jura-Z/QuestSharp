@@ -315,11 +315,11 @@ namespace SharpQuest
                 var c = 0;
                 while (!found)
                 {
-                    text = LocationDescriptions[i - 1].Trim();
+                    text = LocationDescriptions[i - 1];
                     if (string.IsNullOrEmpty(text) == false)
                     {
                         found = true;
-                        LocationDescription = text;
+                        LocationDescription = text.Trim();
                         LocDescrOrder = i + 1;
                     }
                     else 
@@ -336,8 +336,8 @@ namespace SharpQuest
                 }
             }
 
-            LocationDescription = Quest.ProcessString(text);
-            return LocationDescription;
+            //!! LocationDescription = Quest.ProcessString(text);
+            return text;
         }
     }
 }

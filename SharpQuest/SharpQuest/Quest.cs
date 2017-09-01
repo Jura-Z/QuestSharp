@@ -276,9 +276,19 @@ namespace SharpQuest
              
         }
 
-        public static string ProcessString(string text)
+        public string ProcessString(string text, int[] Pars)
         {
-            text = text.Replace("<ToPlanet>", "Магадан");
+            text = QuestCalcParse.InsertParValues(text, Pars);
+            text = text.Replace("<ToStar>", RToStar);
+            text = text.Replace("<Parsec>", RParsec);
+            text = text.Replace("<Artefact>", RArtefact);
+            text = text.Replace("<ToPlanet>", RToPlanet);
+            text = text.Replace("<Date>", RDate);
+            text = text.Replace("<Money>", RMoney);
+            text = text.Replace("<FromPlanet>", RFromPLanet);
+            text = text.Replace("<FromStar>", RFromStar);
+            //text = text.Replace("<Ranger>", RRanger);
+            
             text = text.Replace("<clr>", "");
             text = text.Replace("<clrEnd>", "");
             return text;
