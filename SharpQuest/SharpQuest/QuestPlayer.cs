@@ -305,6 +305,23 @@ namespace SharpQuest
                 //                    FixStringValueParameters(trim(PlayGame.Locations[locationindex].LocationDescription.text), true),
                 //                    false);
             }
+            else
+            {
+                // ????????????????????????
+                string tmp;
+                tmp = quest.Paths[lastpathindex].EndPathMessage;
+                if (string.IsNullOrEmpty(tmp))
+                    tmp = quest.Locations[currentLocationIndx].FindLocationDescription(Pars);
+                if (string.IsNullOrEmpty(tmp))
+                {
+                    int FromLocationIndx = quest.Paths[lastpathindex].FromLocation;
+                    tmp = quest.Locations[FromLocationIndx].FindLocationDescription(Pars);
+                }
+                tmp = quest.ProcessString(tmp, Pars);
+                quest.Locations[currentLocationIndx].LocationDescription = tmp;
+
+            }
+
 
             daysPassed += quest.Locations[currentLocationIndx].DaysCost;
 
