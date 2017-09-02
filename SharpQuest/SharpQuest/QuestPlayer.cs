@@ -715,7 +715,7 @@ namespace SharpQuest
                     var max_rand = (int) Math.Round(pathes[i].Probability * 1000);
                     ClearedAnswers.Add(pathes[i]);
                     custom_maxrnd.Add(max_rand);
-                    maxrnd = maxrnd + custom_maxrnd[i];
+                    maxrnd = maxrnd + max_rand;
                 }
             }
 

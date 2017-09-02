@@ -16,3 +16,4 @@ C:\Dev\QuestSharp\SharpQuest\SharpQuest\bin\Debug\Newtonsoft.Json.xml
 C:\Dev\QuestSharp\SharpQuest\SharpQuest\bin\Debug\nunit.framework.xml
 C:\Dev\QuestSharp\SharpQuest\SharpQuest\obj\Debug\SharpQuest.exe
 C:\Dev\QuestSharp\SharpQuest\SharpQuest\obj\Debug\SharpQuest.pdb
+C:\Dev\QuestSharp\SharpQuest\SharpQuest\obj\Debug\SharpQuest.csprojResolveAssemblyReference.cache
