@@ -1,4 +1,5 @@
-﻿using System;using System.Linq;
+﻿using System;using System.Globalization;
+using System.Linq;
 
 namespace SharpQuest{    public enum QuestTCPVType
     {
@@ -32,6 +33,7 @@ namespace SharpQuest{    public enum QuestTCPVType
             {
                 vtype = QuestTCPVType.vtExt;
                 vd.Clear();
+                str = str.Replace(",", ".");
                 if (!double.TryParse(str, out vf))
                     vf = 0;
                 return true;

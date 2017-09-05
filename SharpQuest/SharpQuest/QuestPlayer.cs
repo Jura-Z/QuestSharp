@@ -11,6 +11,8 @@ namespace SharpQuest
         public readonly Quest quest;
         private int currentLocationIndx;
 
+        string LastLocationDescription;
+        List<QuestPath> LastPossibleTransitions = null;
         private int lastpathindex = 0;
         public int daysPassed = 0;
         public int[] Pars = new int[Quest.maxparameters];
@@ -337,7 +339,7 @@ namespace SharpQuest
                 return;
             }
 
-            if (failFlag) 
+            if (failFlag)
             {
                 System.Console.WriteLine("ShowFail");
                 return;
@@ -357,34 +359,34 @@ namespace SharpQuest
             //Печатаем текст локации,если все нормально
             if (quest.Locations[currentLocationIndx].VoidLocation == false)
             {
-                string tmp = quest.Locations[currentLocationIndx].FindLocationDescription(Pars);
-                tmp = quest.ProcessString(tmp, Pars);
-                quest.Locations[currentLocationIndx].LocationDescription = tmp;
+                LastLocationDescription = quest.Locations[currentLocationIndx].FindLocationDescription(Pars);
+                LastLocationDescription = quest.ProcessString(LastLocationDescription, Pars);
+                quest.Locations[currentLocationIndx].LocationDescription = LastLocationDescription;
 
                 //                SDTcall(
                 //                    FixStringValueParameters(trim(PlayGame.Locations[locationindex].LocationDescription.text), true),
                 //                    false);
             }
+            daysPassed += quest.Locations[currentLocationIndx].DaysCost;
+            /*
             else
             {
                 // ????????????????????????
                 string tmp;
                 tmp = quest.Paths[lastpathindex].EndPathMessage;
                 if (string.IsNullOrEmpty(tmp))
-                    tmp = quest.Locations[currentLocationIndx].LocationDescription;
+                    tmp = quest.Locations[currentLocationIndx].FindLocationDescription(Pars);
                 if (string.IsNullOrEmpty(tmp))
                 {
-                    int FromLocationIndx = quest.Paths[lastpathindex].FromLocation;
-                    tmp = quest.Locations[FromLocationIndx].LocationDescription;
+                    //int FromLocationIndx = quest.Paths[lastpathindex].FromLocation;
+                    //tmp = quest.Locations[FromLocationIndx].LocationDescription;
+                    tmp = LastLocationDescription;
                 }
                 tmp = quest.ProcessString(tmp, Pars);
                 quest.Locations[currentLocationIndx].LocationDescription = tmp;
 
             }
-
-
-            daysPassed += quest.Locations[currentLocationIndx].DaysCost;
-
+            */
             successFlag = false;
             failFlag = IsGameLocationParameterFail(currentLocationIndx, Pars, tpars);
             if (!failFlag)
@@ -402,20 +404,28 @@ namespace SharpQuest
                 return;
             }
 
+            LastPossibleTransitions = PossibleTransitionsInner();
+            if (LastPossibleTransitions.Count == 1 && LastPossibleTransitions[0].PathIndx > 0 && LastPossibleTransitions[0].StartPathMessage == "")
+            {
+                DoTransition(LastPossibleTransitions[0]);
+            }
+            else
+            {
+                string tmp;
+                tmp = quest.Paths[lastpathindex].EndPathMessage;
+                if (quest.Locations[currentLocationIndx].VoidLocation && (string.IsNullOrEmpty(tmp)))
+                {
+                    tmp = quest.Locations[currentLocationIndx].FindLocationDescription(Pars);
+                    tmp = quest.ProcessString(tmp, Pars);
+                    quest.Locations[currentLocationIndx].LocationDescription = tmp;
+                    LastLocationDescription = tmp;
+                }
+                LastPossibleTransitions = PossibleTransitionsInner();
+            }
 
-//            for (var i = 0; i < Quest.maxparameters; ++i)
-//            {
-//                Console.WriteLine(string.Join(",", Pars));
-//            }
-
-//            if (GameState != GameStateGoPath) 
-//                return;
-//
-//            //
         }
 
-
-        void ProcessParametersWithDelta(QuestParameterDelta[] delta) // delta.size == maxparameters
+            void ProcessParametersWithDelta(QuestParameterDelta[] delta) // delta.size == maxparameters
         {
             int[] tpars = new int[Quest.maxparameters];
 
@@ -617,14 +627,18 @@ namespace SharpQuest
 
         public List<QuestPath> PossibleTransitions()
         {
-            var r = PossibleTransitionsInner();
-            if (r.Count == 1 && r[0].StartPathMessage == "")
+            if (LastPossibleTransitions == null)
             {
-                DoTransition(r[0]);
-                return PossibleTransitions();
+                var r = PossibleTransitionsInner();
+                if (r.Count == 1 && r[0].StartPathMessage == "")
+                {
+                    DoTransition(r[0]);
+                    return PossibleTransitions();
+                }
+                else
+                    return PossibleTransitionsInner();
             }
-            else
-                return PossibleTransitionsInner();
+            return LastPossibleTransitions;
         }
         
         List<QuestPath> PossibleTransitionsInner()
@@ -848,10 +862,16 @@ namespace SharpQuest
 
             lastpathindex = pathindex;
 
-//            if (quest.Paths[pathindex].EndPathMessage.Trim() != "")
-//            {
-//                Console.WriteLine(quest.Paths[pathindex].EndPathMessage.Trim());
-//            }
+            //            if (quest.Paths[pathindex].EndPathMessage.Trim() != "")
+            //            {
+            //                Console.WriteLine(quest.Paths[pathindex].EndPathMessage.Trim());
+            //            }
+            string tmp = quest.Paths[lastpathindex].EndPathMessage;
+            if (!string.IsNullOrEmpty(tmp))
+            {
+                LastLocationDescription = quest.ProcessString(tmp, Pars);
+                quest.Locations[currentLocationIndx].LocationDescription = LastLocationDescription;
+            }
 
             WeAreInTheLocation();
         }

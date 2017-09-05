@@ -41,6 +41,9 @@ namespace QuestUnitTest
 
             QuestRandom.AddSeq("A", 6, 20);
             QuestRandom.AddSeq("B", 18, 20);
+
+            QuestRandom.AddSeq("A", 1, 3);
+            QuestRandom.AddSeq("B", 2, 3);
             QuestRandom.FinishSeq();
 
 
@@ -89,6 +92,21 @@ namespace QuestUnitTest
             parse.Parse(tstr, Pars);
             Assert.IsFalse(parse.error);
             Assert.AreEqual(2, parse.answer);
+
+            tstr = "0,01*200";
+            parse = new QuestCalcParse();
+            parse.Parse(tstr, Pars);
+            Assert.IsFalse(parse.error);
+            Assert.AreEqual(2, parse.answer);
+
+            tstr = "[p3]+0,01*[30..32]*[p2]+1";
+            Pars[2] = 0;
+            Pars[1] = 83;
+            parse = new QuestCalcParse();
+            parse.Parse(tstr, Pars);
+            Assert.IsFalse(parse.error);
+            Assert.AreEqual(28, parse.answer);
+
 
         }
         [TestCase("Bank.result")]
@@ -361,6 +379,7 @@ namespace QuestUnitTest
                         string step_string = Answer.GetValue("Value").Value<string>();
 
                         QuestPath qp = trans[step_index - 1];
+                        EndPathMessage = player.quest.ProcessString(EndPathMessage, player.Pars);
                         Assert.AreEqual(EndPathMessage, qp.EndPathMessage, string.Format("Invalid EndPathMessage (step: {0})", stepcount));
                         Assert.AreEqual(step_string, qp.StartPathMessage, string.Format("Invalid StartPathMessage (step: {0})", stepcount));
 
