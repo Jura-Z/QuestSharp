@@ -41,4 +41,21 @@
             }
             return false;
         }
-    }}
+        public string GetString()
+        {
+            string result = "[";
+            for (int i = 0; i < count; i++)
+            {
+                if (low[i] == hi[i])
+                    result += low[i].ToString();
+                else
+                    result += string.Format("{0}h{1}", low[i], hi[i]);
+
+                if (i < count - 1)
+                    result += ';';
+                else
+                    result += ']';
+            }
+            return result;
+        }
+    }}

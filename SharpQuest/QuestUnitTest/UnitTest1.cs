@@ -45,32 +45,50 @@ namespace QuestUnitTest
 
 
             tstr = "[60..90]";
-            var parse = new QuestCalcParse(tstr, index, Pars);
+            var parse = new QuestCalcParse();
+            parse.Parse(tstr, Pars);
             Assert.IsFalse(parse.error);
             Assert.AreEqual(73, parse.answer);
 
             tstr = "[81..99]";
-            parse = new QuestCalcParse(tstr, index, Pars);
-            Assert.IsFalse(parse.error);
+            parse = new QuestCalcParse();
+            parse.Parse(tstr, Pars);
             Assert.AreEqual(94, parse.answer);
 
             tstr = "[41..59]";
-            parse = new QuestCalcParse(tstr, index, Pars);
-            Assert.IsFalse(parse.error);
+            parse = new QuestCalcParse();
+            parse.Parse(tstr, Pars);
             Assert.AreEqual(43, parse.answer);
 
             // 21+3*100+2*10+1;
             tstr = "[p22]+[0..4]*100+[0..4]*10+[0..4]";
-            parse = new QuestCalcParse(tstr, index, Pars);
+            parse = new QuestCalcParse();
+            parse.Parse(tstr, Pars);
             Assert.IsFalse(parse.error);
             Assert.AreEqual(342, parse.answer);
 
-            
+
             tstr = "[p4]*10>20+[p5]*0,8+[1..20]";
             Pars[4] = 100;
-            parse = new QuestCalcParse(tstr, index, Pars);
+            parse = new QuestCalcParse();
+            parse.Parse(tstr, Pars);
             Assert.IsFalse(parse.error);
             Assert.AreEqual(0, parse.answer);
+
+            tstr = "XXXX([p24]<>0)+1";
+            Pars[23] = 100;
+            parse = new QuestCalcParse();
+            tstr = parse.AssignAndPreprocess(tstr, 1);
+            Assert.IsFalse(parse.error);
+            Assert.AreEqual(0, parse.answer);
+
+            tstr = "[p1] mod 7+1";
+            Pars[0] = 1;
+            parse = new QuestCalcParse();
+            tstr = parse.AssignAndPreprocess(tstr, 1);
+            parse.Parse(tstr, Pars);
+            Assert.IsFalse(parse.error);
+            Assert.AreEqual(2, parse.answer);
 
         }
         [TestCase("Bank.result")]
@@ -323,6 +341,20 @@ namespace QuestUnitTest
                         
                     }
 
+                    // -------------------------------
+
+                    if (QuestRandom.RamdomCallCount() != RandomCount)
+                    {
+                        for (var ki = QuestRandom.RamdomCallCount() + 1; ki <= RandomCount; ++ki)
+                        {
+                            Console.Write(ki + " ");
+                            QuestRandom.DebugPrint(ki);
+                        }
+                        Console.WriteLine();
+                    }
+
+                    Assert.AreEqual(RandomCount, QuestRandom.RamdomCallCount(), string.Format("Invalid Ramdom call count (step: {0})", stepcount));
+
                     if (Answer != null)
                     {
                         int step_index = Answer.GetValue("Index").Value<int>();
@@ -337,19 +369,6 @@ namespace QuestUnitTest
                         player.DoTransition(qp);
                     }
 
-                    // -------------------------------
-
-                    if (QuestRandom.RamdomCallCount() != RandomCount)
-                    {
-                        for (var ki = QuestRandom.RamdomCallCount() + 1; ki <= RandomCount; ++ki)
-                        {
-                            Console.Write(ki + " ");
-                            QuestRandom.DebugPrint(ki);
-                        }
-                        Console.WriteLine();
-                    }
-                    
-                    Assert.AreEqual(RandomCount, QuestRandom.RamdomCallCount(), string.Format("Invalid Ramdom call count (step: {0})", stepcount));
                     
                 }
             }

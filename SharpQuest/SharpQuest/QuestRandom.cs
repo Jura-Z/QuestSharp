@@ -59,7 +59,8 @@ namespace SharpQuest
         {
             ++randomCallCount;
             
-            return seq.Get(name, max);
+            var result = seq.Get(name, max);
+            return result;
             //return max / 2;
         }
 

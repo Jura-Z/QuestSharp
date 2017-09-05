@@ -207,6 +207,66 @@ namespace SharpQuest
             WeAreInTheLocation();
         }
 
+        private bool WeHaveSavingPath(int LocationIndx, int parNumber, int[] pars)
+        {
+            for (var i = 0; i < quest.PathesValue; ++i)
+                if ((PathesWeCanGo[LocationIndx, i] >= 1) && IsParametersGatesOk(pars, i))
+                    return true;
+            return false;
+        }
+
+        bool IsGameLocationParameterFail(int LocationIndx, int[] pars, int[] oldPars)
+        {
+            for (var i = 0; i < Quest.maxparameters; ++i)
+            {
+                if (quest.Pars[i].Enabled == false)
+                    continue;
+                if (WeHaveSavingPath(LocationIndx, i, pars))
+                    continue;
+                if (oldPars[i] == pars[i])
+                    continue;
+
+                if (quest.Pars[i].ParType != QuestParameter.FailParType &&
+                    quest.Pars[i].ParType != QuestParameter.DeathParType)
+                    continue;
+
+                if ((quest.Pars[i].LoLimit) && (pars[i] <= quest.Pars[i].min) ||
+                    (!quest.Pars[i].LoLimit) && (pars[i] >= quest.Pars[i].max))
+                {
+                    CustomCriticalMessage = quest.Locations[LocationIndx].DPars[i].CriticalMessage.Trim();
+                    CurrentCriticalParameter = i;
+
+                    Console.WriteLine(i + " -> " + quest.Locations[LocationIndx].DPars[i].CriticalMessage.Trim());
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        bool IsGameLocationParameterSuccess(int LocationIndx, int[] pars, int[] oldPars)
+        {
+            for (int i = 0; i < Quest.maxparameters; i++)
+            {
+                if (quest.Pars[i].Enabled == false) continue;
+
+                if (oldPars[i] == pars[i]) continue;
+
+                if (quest.Pars[i].ParType != QuestParameter.SuccessParType)
+                    continue;
+
+                if ((quest.Pars[i].LoLimit) && (pars[i] <= quest.Pars[i].min) ||
+                    (!quest.Pars[i].LoLimit) && (pars[i] >= quest.Pars[i].max))
+                {
+                    CustomCriticalMessage = quest.Locations[LocationIndx].DPars[i].CriticalMessage.Trim();
+                    CurrentCriticalParameter = i;
+
+                    Console.WriteLine(i + " -> " + quest.Locations[LocationIndx].DPars[i].CriticalMessage.Trim());
+                    return true;
+                }
+            }
+            return false;
+        }
+
         bool IsGamePathParameterFail(int pathIndx, int[] pars, int[] oldPars)
         {
             if (pathIndx <= 0) return false;
@@ -311,11 +371,11 @@ namespace SharpQuest
                 string tmp;
                 tmp = quest.Paths[lastpathindex].EndPathMessage;
                 if (string.IsNullOrEmpty(tmp))
-                    tmp = quest.Locations[currentLocationIndx].FindLocationDescription(Pars);
+                    tmp = quest.Locations[currentLocationIndx].LocationDescription;
                 if (string.IsNullOrEmpty(tmp))
                 {
                     int FromLocationIndx = quest.Paths[lastpathindex].FromLocation;
-                    tmp = quest.Locations[FromLocationIndx].FindLocationDescription(Pars);
+                    tmp = quest.Locations[FromLocationIndx].LocationDescription;
                 }
                 tmp = quest.ProcessString(tmp, Pars);
                 quest.Locations[currentLocationIndx].LocationDescription = tmp;
@@ -326,9 +386,9 @@ namespace SharpQuest
             daysPassed += quest.Locations[currentLocationIndx].DaysCost;
 
             successFlag = false;
-            failFlag = IsGamePathParameterFail(currentLocationIndx, Pars, tpars);
+            failFlag = IsGameLocationParameterFail(currentLocationIndx, Pars, tpars);
             if (!failFlag)
-                successFlag = IsGamePathParameterSuccess(currentLocationIndx, Pars, tpars);
+                successFlag = IsGameLocationParameterSuccess(currentLocationIndx, Pars, tpars);
 
             if (successFlag)
             {
@@ -367,9 +427,10 @@ namespace SharpQuest
 
                     if (delta[i].DeltaExprFlag)
                     {
-                        if (tstr != null)
+                        if (!string.IsNullOrEmpty(tstr))
                         {
-                            var parse = new QuestCalcParse(tstr, i, Pars);
+                            var parse = new QuestCalcParse();
+                            parse.Parse(tstr, Pars);
                             if (parse.error == false)
                                 tpars[i] = parse.answer;
                         }
@@ -453,7 +514,8 @@ namespace SharpQuest
             var tstr = quest.Paths[pathIndx].LogicExpression.Trim();
             if (tstr != "")
             {
-                QuestCalcParse parse = new QuestCalcParse(tstr, 0, Pars);
+                var parse = new QuestCalcParse();
+                parse.Parse(tstr, Pars);
                 if ((parse.answer == 0) && (!parse.error))
                     return false;
 

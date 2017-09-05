@@ -1,23 +1,77 @@
 ﻿using System;
+using System.Linq;
 
 namespace SharpQuest
 {
     public class QuestCalcParse
     {
-        bool calc_error = false;
+        
+        bool num_error = true;
+        bool diapazone_error = true;
+        bool parameters_error = false;
+        bool sym_warning = false;
+        public bool default_expression = false;
+        public bool calc_error = false;
         //private string _str;
         public bool error;
         public int answer;
 
-        public QuestCalcParse(string str, int currParNum, int[] pars)
+        public QuestCalcParse()
+        {
+            Clear();
+            //Parse(str, pars);
+        }
+        public void Clear()
         {
             error = false;
-            answer = 0;
-            str = ConvertStirng(str);
-            Parse(str, pars);
+            answer = 0;;
+            diapazone_error = true;
+            parameters_error = false;
+            sym_warning = false;
+            default_expression = false;
+            calc_error = false;
+            num_error = true;
         }
-        private void Parse(string str, int[] pars)
+
+        public string AssignAndPreprocess(string str, int currparnum)
         {
+            Clear();
+            int i;
+            string tempstr;
+            string orig_str = str;
+            str = ConvertStirng(str);
+            str = FixSeparate(str);
+            str = FixFinal(str);
+            str = FixNum(str);
+            bool parentheses_error = !CheckParentheses(str, 0, str.Length-1);
+            if (parentheses_error) error = true;
+            tempstr = str;
+            if (!error)
+            { 
+                i = str.Length-1;
+                if ((i >= 1) && (str[0] == '(') && (str[i] == ')') && CheckParentheses(str, 2, i - 1))
+                {
+                    tempstr = "";
+                    for (int c = 1; c < i; c++)
+                        tempstr = tempstr + str[c];
+                }
+            }
+            if (orig_str != ConvertStirng(tempstr))
+                sym_warning = true;
+
+            if ((str == "") || (str == "[p" + currparnum + "]"))
+            {
+                default_expression = true;
+                str = "[p" + currparnum + "]";
+            }
+
+            return str;
+        }
+
+        public void Parse(string str, int[] pars)
+        {
+            str = ConvertStirng(str);
+
             string tmp = InsertParValues(str, pars);
             tmp = "(" + tmp + ")";
             QuestTCPVariant range = Calc(tmp);
@@ -50,7 +104,7 @@ namespace SharpQuest
             {
                 int val = pars[i];
                 string s = (val < 0) ? string.Format("(0{0})", val) : string.Format("{0}", val);
-                result = StirngReplace(result, string.Format("[p{0}]", i+1), s);
+                result = StringReplace(result, string.Format("[p{0}]", i+1), s);
             }
             return result;
         }
@@ -299,39 +353,403 @@ namespace SharpQuest
             }
             return cnt == 0;
         }
-        private static string StirngReplace(string str, string oStr, string nStr)
+        private static string StringReplace(string str, string oStr, string nStr)
         {
             return str.Replace(oStr, nStr);
         }
         private string ConvertStirng(string str)
         {
             string result = str.ToLower();
-            result = StirngReplace(result,"div", "f");
-            result = StirngReplace(result,"mod", "g");
-            result = StirngReplace(result,"in", "#");
-            result = StirngReplace(result,"to", "$");
-            result = StirngReplace(result,"or", "|");
-            result = StirngReplace(result,"and", "&");
-            result = StirngReplace(result,"<>", "e");
-            result = StirngReplace(result,">=", "c");
-            result = StirngReplace(result,"<=", "b");
-            result = StirngReplace(result,"..", "h");
-            result = StirngReplace(result,".", ",");
+            result = StringReplace(result,"div", "f");
+            result = StringReplace(result,"mod", "g");
+            result = StringReplace(result,"in", "#");
+            result = StringReplace(result,"to", "$");
+            result = StringReplace(result,"or", "|");
+            result = StringReplace(result,"and", "&");
+            result = StringReplace(result,"<>", "e");
+            result = StringReplace(result,">=", "c");
+            result = StringReplace(result,"<=", "b");
+            result = StringReplace(result,"..", "h");
+            result = StringReplace(result,".", ",");
 
-            result = StirngReplace(result," ", "");
-            result = StirngReplace(result,"d", "");
-            result = StirngReplace(result,"m", "");
-            result = StirngReplace(result,"o", "");
-            result = StirngReplace(result,"t", "");
-            result = StirngReplace(result,"i", "");
-            result = StirngReplace(result,"a", "");
-            result = StirngReplace(result,"n", "");
-            result = StirngReplace(result,"d", "");
+            result = StringReplace(result," ", "");
+            result = StringReplace(result,"d", "");
+            result = StringReplace(result,"m", "");
+            result = StringReplace(result,"o", "");
+            result = StringReplace(result,"t", "");
+            result = StringReplace(result,"i", "");
+            result = StringReplace(result,"a", "");
+            result = StringReplace(result,"n", "");
+            result = StringReplace(result,"d", "");
             result = "("+result+")";
 
             return result;
 
         }
-        
+
+        // Вся строка делится на строки в [ ] и вне них
+        // для строк без [] вызывается FixLitNorm, а в [] FixLitDP
+        private string FixSeparate(string _str)
+        {
+            string result = "";
+            bool normalscan = true; ;
+            int c = 0;
+            int l = _str.Length;
+            string tstr = "";
+            while (c < l)
+            {
+                if (normalscan)
+                {
+                    if (_str[c] == '[')
+                    {
+                        result += FixLitNorm(tstr);
+                        tstr = "[";
+                        normalscan = false;
+                        c++;
+                    }
+                    else
+                    {
+                        tstr += _str[c];
+                        c++;
+                        if (c >= l)
+                            result += FixLitNorm(tstr);
+                    }
+                }
+                else
+                {
+                    if ((c >= l) || (_str[c] == ']')) {
+                        result += FixLitDP(tstr + ']');
+                        tstr = "";
+                        normalscan = true;
+                    }
+                    else
+                        tstr += _str[c];
+                    c++;
+                }
+            }
+            return result;
+        }
+
+        // упрощаем конструкции, стоящие за скобками []
+        private string FixLitNorm(string _str)
+        {
+            string result = "";
+            // Убираем заведомо ненужные символы
+            char[] chrs = new char[] { '+', '-', '*', '/', '#', '$', 'c', 'b', 'e', 'f', 'g', '=', '>', '<', '&', '|', ',', '(', ')' };
+
+            string gstr = "";
+            foreach (char c in _str)
+            {
+                if (((c >= '0') && (c <= '9')) || chrs.Contains(c))
+                {
+                    gstr += c;
+                }
+            }
+            _str = gstr;
+            // Начинаем преобразование конструкций
+            while (true)
+            {
+                gstr = _str;
+                string tstr = _str;
+                while (true) // Скобки поглощают некоторые рядом стоящие символы
+                {
+                    _str = tstr;
+                    tstr = StringReplace(tstr, ")(", ")*(");
+                    tstr = StringReplace(tstr, "()", "");
+                    tstr = StringReplace(tstr, ".", ",");
+                    tstr = StringReplace(tstr, ",,", ",");
+                    tstr = StringReplace(tstr, "(,", "(0,");
+                    tstr = StringReplace(tstr, "),", ")*0,");
+                    tstr = StringReplace(tstr, ")0", ")*0");
+                    tstr = StringReplace(tstr, ")1", ")*1");
+                    tstr = StringReplace(tstr, ")2", ")*2");
+                    tstr = StringReplace(tstr, ")3", ")*3");
+                    tstr = StringReplace(tstr, ")4", ")*4");
+                    tstr = StringReplace(tstr, ")5", ")*5");
+                    tstr = StringReplace(tstr, ")6", ")*6");
+                    tstr = StringReplace(tstr, ")7", ")*7");
+                    tstr = StringReplace(tstr, ")8", ")*8");
+                    tstr = StringReplace(tstr, ")9", ")*9");
+                    tstr = StringReplace(tstr, ",(", ",*(");
+                    tstr = StringReplace(tstr, "0(", "0*(");
+                    tstr = StringReplace(tstr, "1(", "1*(");
+                    tstr = StringReplace(tstr, "2(", "2*(");
+                    tstr = StringReplace(tstr, "3(", "3*(");
+                    tstr = StringReplace(tstr, "4(", "4*(");
+                    tstr = StringReplace(tstr, "5(", "5*(");
+                    tstr = StringReplace(tstr, "6(", "6*(");
+                    tstr = StringReplace(tstr, "7(", "7*(");
+                    tstr = StringReplace(tstr, "8(", "8*(");
+                    tstr = StringReplace(tstr, "9(", "9*(");
+                    if (_str == tstr)
+                        break;
+                }
+
+
+                // Упрощаем конструкции из рядом стоящих операций
+                int l = _str.Length;
+                tstr = "";
+                result = "";
+                int i = 0;
+                while (i < l)
+                {
+
+                    if ((i < l) && (GetOperationOrder(_str[i]) > 0))
+                    {
+                        tstr = "";
+                        while ((i < l) && (GetOperationOrder(_str[i]) > 0))
+                        {
+                            tstr += _str[i];
+                            i++;
+                        }
+
+                        result += FixOp(tstr);
+                    }
+                    if ((i < l) && GetOperationOrder(_str[i]) < 0)
+                    {
+                        tstr = "";
+                        while ((i < l) && (GetOperationOrder(_str[i]) < 0))
+                        {
+                            tstr += _str[i];
+                            i++;
+                        }
+
+                        result += tstr;
+                    }
+                }
+
+                _str = result;
+                tstr = _str;
+                while (true) // Cнова скобки вносят преобразования
+                {
+                    _str = tstr;
+                    tstr = StringReplace(tstr, "(+", "(");
+                    tstr = StringReplace(tstr, "(*", "(");
+                    tstr = StringReplace(tstr, "(/", "(");
+                    tstr = StringReplace(tstr, "(&", "(");
+                    tstr = StringReplace(tstr, "(|", "(");
+                    tstr = StringReplace(tstr, "(#", "(");
+                    tstr = StringReplace(tstr, "($", "(");
+                    tstr = StringReplace(tstr, "(c", "(");
+                    tstr = StringReplace(tstr, "(b", "(");
+                    tstr = StringReplace(tstr, "(e", "(");
+                    tstr = StringReplace(tstr, "(f", "(");
+                    tstr = StringReplace(tstr, "(g", "(");
+                    tstr = StringReplace(tstr, "(<", "(");
+                    tstr = StringReplace(tstr, "(>", "(");
+                    tstr = StringReplace(tstr, "(=", "(");
+                    tstr = StringReplace(tstr, "-)", ")");
+                    tstr = StringReplace(tstr, "+)", ")");
+                    tstr = StringReplace(tstr, "*)", ")");
+                    tstr = StringReplace(tstr, "/)", ")");
+                    tstr = StringReplace(tstr, "&)", ")");
+                    tstr = StringReplace(tstr, "|)", ")");
+                    tstr = StringReplace(tstr, "$)", ")");
+                    tstr = StringReplace(tstr, "#)", ")");
+                    tstr = StringReplace(tstr, "c)", ")");
+                    tstr = StringReplace(tstr, "b)", ")");
+                    tstr = StringReplace(tstr, "e)", ")");
+                    tstr = StringReplace(tstr, "f)", ")");
+                    tstr = StringReplace(tstr, "g)", ")");
+                    tstr = StringReplace(tstr, ">)", ")");
+                    tstr = StringReplace(tstr, "<)", ")");
+                    tstr = StringReplace(tstr, "=)", ")");
+                    tstr = StringReplace(tstr, "()", "");
+                    tstr = StringReplace(tstr, ")(", ")*(");
+                    if (_str == tstr)
+                        break;
+                }
+                if (gstr == _str) // если поменять больше нечего - получаем ответ
+                    break;
+            }
+            
+            return result;
+        }
+
+        // упрощает и распознает диапазон или параметр
+        private string FixLitDP(string str)
+        {
+            if (StringReplace(str, "p", "") != str)
+                return FixLitP(str);
+            else
+                return FixLitD(str);
+        }
+
+        // упрощает и распознает параметр
+        private string FixLitP(string str)
+        {
+            string tstr = "";
+            foreach (char c in str)
+            {
+                if (tstr.Length > 2)
+                    break;
+                if ((c >= '0') && (c <= '9'))
+                    tstr += c;
+            }
+            int i = int.Parse('0' + tstr);
+            if ((i > 0) && (i < 25))
+            {
+                return "[p" + i + "]";
+            }
+            else
+            {
+                parameters_error = true;
+                error = true;
+                return  "[err]";
+            }
+        }
+
+        // упрощает и распознает диапазон
+        private string FixLitD(string str)
+        {
+
+            string tstr = "";
+            int l = str.Length;
+            foreach (char c in str)
+            {
+                if (((c >= '0') && (c <= '9')) || (c == '-') || (c == ';') || (c == 'h'))
+                    tstr += c;
+            }
+            str = ';' + tstr + ';';
+            tstr = str;
+            while (true)
+            {
+                str = tstr;
+                tstr = StringReplace(tstr, "--", "");
+                tstr = StringReplace(tstr, ";;", ";");
+                tstr = StringReplace(tstr, "h;", ";");
+                tstr = StringReplace(tstr, ";h", ";");
+                tstr = StringReplace(tstr, "-;", ";");
+                tstr = StringReplace(tstr, "-h", "h");
+                tstr = StringReplace(tstr, "hh", "h");
+                if (str == tstr)
+                    break;
+            }
+            if ((tstr != ";") && (str.Length > 0))
+            {
+                str = "[" + str.Substring(1, str.Length - 2) + "]";
+                QuestTCPRange d = new QuestTCPRange();
+                d.Assign(str);
+                str = d.GetString();
+                return str;
+            }
+            else
+            {
+                diapazone_error = true;
+                error = true;
+                return "[err]";
+
+            }
+        }
+
+        private string FixFinal(string str)
+        {
+            string tstr = str;
+            while (true)
+            {
+                str = tstr;
+                tstr = StringReplace(tstr, "-,", "-0,");
+
+                tstr = StringReplace(tstr, ")[", ")*[");
+                tstr = StringReplace(tstr, "](", "]*(");
+                tstr = StringReplace(tstr, ")(", ")*(");
+                tstr = StringReplace(tstr, "][", "]*[");
+
+                tstr = StringReplace(tstr, "],", "]*0,");
+                tstr = StringReplace(tstr, "]0", "]*0");
+                tstr = StringReplace(tstr, "]1", "]*1");
+                tstr = StringReplace(tstr, "]2", "]*2");
+                tstr = StringReplace(tstr, "]3", "]*3");
+                tstr = StringReplace(tstr, "]4", "]*4");
+                tstr = StringReplace(tstr, "]5", "]*5");
+                tstr = StringReplace(tstr, "]6", "]*6");
+                tstr = StringReplace(tstr, "]7", "]*7");
+                tstr = StringReplace(tstr, "]8", "]*8");
+                tstr = StringReplace(tstr, "]9", "]*9");
+                tstr = StringReplace(tstr, ",[", ",*[");
+                tstr = StringReplace(tstr, "0[", "0*[");
+                tstr = StringReplace(tstr, "1[", "1*[");
+                tstr = StringReplace(tstr, "2[", "2*[");
+                tstr = StringReplace(tstr, "3[", "3*[");
+                tstr = StringReplace(tstr, "4[", "4*[");
+                tstr = StringReplace(tstr, "5[", "5*[");
+                tstr = StringReplace(tstr, "6[", "6*[");
+                tstr = StringReplace(tstr, "7[", "7*[");
+                tstr = StringReplace(tstr, "8[", "8*[");
+                tstr = StringReplace(tstr, "9[", "9*[");
+                if (str == tstr)
+                    break;
+            }
+            return str;
+        }
+        private string FixNum(string str)
+        {
+            int i = 0;
+            int c = str.Length;
+            string s = "";
+            string s1 = "";
+            double f = 0;
+            while (i < c)
+            {
+                if (((str[i] >= '0') && (str[i] <= '9')) || (str[i] == ','))
+                {
+                    s += str[i];
+                }
+                else
+                {
+                    if (s != "")
+                    {
+                        if (!double.TryParse(s, out f))
+                        {
+                            error = true;
+                            num_error = true;
+                            return "";
+                        }
+
+                        if (f > 999999999) f = 999999999;
+                        if ((f < 0.0001) && (f != 0)) f = 0.0001;
+
+                        s1 += f.ToString() + str[i];
+                        s = "";
+                    }
+                    else
+                        s1 += str[i];
+                }
+                i++;
+            }
+            return s1;
+        }
+        private char FixOp(string str)
+        {
+            int cc = 0;
+            int qq = 0;
+            string result = "";
+
+            foreach (char c in str)
+            {
+                if (c == '-') cc++;
+                if (c == '+') qq++;
+            }
+            result = StringReplace(str, "-", "");
+            result = StringReplace(result, "+", "");
+            if ((cc % 2) == 1)
+                result += "-";
+            else if ((qq > 0) || (cc > 0))
+                result += "+";
+
+            int l = result.Length;
+            cc = 0;
+            qq = 0;
+            for (int i = l - 1; i >= 0; i--)
+            {
+                if (cc <= GetOperationOrder(result[i]))
+                {
+                    qq = i;
+                    cc = GetOperationOrder(result[i]);
+                }
+            }
+            return result[qq];
+        }
+
     }
 }

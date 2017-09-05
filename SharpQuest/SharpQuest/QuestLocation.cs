@@ -260,54 +260,60 @@ namespace SharpQuest
             var text = "";
             if (RandomShowLocationDescriptions)
             {
-                throw new Exception("not implemented");
-//                var flag = true;
-//                parse = TCalcParse.Create;
-//                parse.AssignAndPreprocess(LocDescrExprOrder.Text, 1);
-//                if (parse.error or parse.default_expression ) flag = false;
-//
-//                if (flag)
-//                {
-//                    parse.Parse(CalcParseClass.TParValues(pars));
-//                    if (parse.calc_error) flag = false;
-//                }
-//
-//                if (flag)
-//                {
-//                    if ((parse.answer > 10)or(parse.answer < 1) ) flag = false;
-//                }
-//
-//                if (flag)
-//                {
-//                    if (trim(LocationDescriptions[parse.answer].Text) = "") flag = false;
-//                }
-//
-//                if (flag)
-//                {
-//                    text = trim(LocationDescriptions[parse.answer].Text);
-//                }
-//
-//
-//                if (!flag)
-//                {
-//                    c = 0;
-//                    while (!found)
-//                    {
-//                        i = Random(10) + 1;
-//                        text = trim(LocationDescriptions[i].Text);
-//                        if (text != "")
-//                        {
-//                            found = true;
-//                            LocationDescription.Text = text;
-//                        }
-//                        else inc(c);
-//                        if (c > MaxLocationDescriptions * 2)
-//                        {
-//                            text = "";
-//                            found = true;
-//                        }
-//                    }
-//                }
+
+                
+                var flag = true;
+                var parse = new QuestCalcParse();
+                string str = parse.AssignAndPreprocess(LocDescrExprOrder, 1);
+                if (parse.error || parse.default_expression ) 
+                    flag = false;
+
+                if (flag)
+                {
+                    parse.Parse(str, playerPars);
+                    if (parse.calc_error)
+                        flag = false;
+                }
+
+                if (flag)
+                {
+                    if ((parse.answer > 10) || (parse.answer < 1))
+                        flag = false;
+                }
+
+                if (flag)
+                {
+                    string tmp = LocationDescriptions[parse.answer-1];
+                    tmp = string.IsNullOrEmpty(tmp) ? "" : tmp.Trim();
+                    if (string.IsNullOrEmpty(tmp))
+                        flag = false;
+                }
+
+                if (flag)
+                    text = LocationDescriptions[parse.answer-1].Trim();
+
+
+                if (!flag)
+                {
+                    int c = 0;
+                    while (!found)
+                    {
+                        int i = QuestRandom.Get("E", 10);// Random(10) + 1;
+                        text = LocationDescriptions[i].Trim();
+                        if (text != "")
+                        {
+                            found = true;
+                            LocationDescription = text;
+                        }
+                        else
+                            c++;
+                        if (c > MaxLocationDescriptions * 2)
+                        {
+                            text = "";
+                            found = true;
+                        }
+                    }
+                }
             }
             else
             {

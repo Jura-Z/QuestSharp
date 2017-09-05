@@ -276,6 +276,56 @@ namespace SharpQuest
              
         }
 
+        private string FixStringValuePars(string str, int[] Pars)
+        {
+            string result = str;
+            string tstr = "";
+            int i = 0;
+            int c = result.Length;
+            while (i < c)
+            {
+                if (result[i] != '{')
+                {
+                    tstr += result[i];
+                    i++;
+                }
+                else
+                {
+                    i++;
+                    string tstr1 = "";
+                    while ((i < c) && (result[i] != '}'))
+                    {
+                        tstr1 += result[i];
+                        i++;
+                    }
+                    if (tstr1 != "")
+                    {
+                        var parse = new QuestCalcParse();
+                        parse.Clear();
+                        string tmp = parse.AssignAndPreprocess(tstr1, 1);
+                        if (!(parse.error || parse.default_expression))
+                        {
+                            parse.Parse(tmp, Pars);
+                            if (!parse.error)
+                                tstr += parse.answer.ToString();
+                            else
+                                tstr += '{' + tstr1;
+                        }
+                        else
+                            tstr += '{' + tstr1;
+                    }
+                    i++;
+                }
+            }
+            result = tstr;
+            for (int p = 0; p < Quest.maxparameters; p++)
+            {
+                result = result.Replace("[p" + p.ToString() + "]",
+                 Pars[p].ToString());
+            }
+            return result;
+
+        }
         public string ProcessString(string text, int[] Pars)
         {
             text = QuestCalcParse.InsertParValues(text, Pars);
@@ -284,6 +334,7 @@ namespace SharpQuest
             text = text.Replace("<Artefact>", RArtefact);
             text = text.Replace("<ToPlanet>", RToPlanet);
             text = text.Replace("<Date>", RDate);
+            text = text.Replace("<CurDate>", "1 января 3000 г.");
             text = text.Replace("<Money>", RMoney);
             text = text.Replace("<FromPlanet>", RFromPLanet);
             text = text.Replace("<FromStar>", RFromStar);
@@ -291,7 +342,9 @@ namespace SharpQuest
             
             text = text.Replace("<clr>", "");
             text = text.Replace("<clrEnd>", "");
+            text = FixStringValuePars(text, Pars);
             return text;
+
         }
     }
 }
