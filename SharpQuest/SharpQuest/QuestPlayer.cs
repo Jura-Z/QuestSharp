@@ -363,30 +363,10 @@ namespace SharpQuest
                 LastLocationDescription = quest.ProcessString(LastLocationDescription, Pars);
                 quest.Locations[currentLocationIndx].LocationDescription = LastLocationDescription;
 
-                //                SDTcall(
-                //                    FixStringValueParameters(trim(PlayGame.Locations[locationindex].LocationDescription.text), true),
-                //                    false);
             }
-            daysPassed += quest.Locations[currentLocationIndx].DaysCost;
-            /*
-            else
-            {
-                // ????????????????????????
-                string tmp;
-                tmp = quest.Paths[lastpathindex].EndPathMessage;
-                if (string.IsNullOrEmpty(tmp))
-                    tmp = quest.Locations[currentLocationIndx].FindLocationDescription(Pars);
-                if (string.IsNullOrEmpty(tmp))
-                {
-                    //int FromLocationIndx = quest.Paths[lastpathindex].FromLocation;
-                    //tmp = quest.Locations[FromLocationIndx].LocationDescription;
-                    tmp = LastLocationDescription;
-                }
-                tmp = quest.ProcessString(tmp, Pars);
-                quest.Locations[currentLocationIndx].LocationDescription = tmp;
 
-            }
-            */
+            daysPassed += quest.Locations[currentLocationIndx].DaysCost;
+
             successFlag = false;
             failFlag = IsGameLocationParameterFail(currentLocationIndx, Pars, tpars);
             if (!failFlag)
@@ -405,7 +385,7 @@ namespace SharpQuest
             }
 
             LastPossibleTransitions = PossibleTransitionsInner();
-            if (LastPossibleTransitions.Count == 1 && LastPossibleTransitions[0].PathIndx > 0 && LastPossibleTransitions[0].StartPathMessage == "")
+            if ((LastPossibleTransitions.Count == 1) && (LastPossibleTransitions[0].PathIndx > 0) && (LastPossibleTransitions[0].StartPathMessage == ""))
             {
                 DoTransition(LastPossibleTransitions[0]);
             }

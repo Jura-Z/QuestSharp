@@ -33,8 +33,8 @@ namespace SharpQuest{    public enum QuestTCPVType
             {
                 vtype = QuestTCPVType.vtExt;
                 vd.Clear();
-                str = str.Replace(",", ".");
-                if (!double.TryParse(str, out vf))
+                
+                if (!double.TryParse(str.Replace(',', '.'), out vf))
                     vf = 0;
                 return true;
             }

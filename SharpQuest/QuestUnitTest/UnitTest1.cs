@@ -107,7 +107,21 @@ namespace QuestUnitTest
             Assert.IsFalse(parse.error);
             Assert.AreEqual(28, parse.answer);
 
+            tstr = "(0<90)";
+            parse = new QuestCalcParse();
+            parse.Parse(tstr, Pars);
+            Assert.IsFalse(parse.error);
+            Assert.AreEqual(1, parse.answer);
 
+            tstr = "([p3]<90) or ([p4]<90)";
+            Pars[2] = 50;
+            Pars[3] = 100;
+            parse = new QuestCalcParse();
+            parse.Parse(tstr, Pars);
+            Assert.IsFalse(parse.error);
+            Assert.AreEqual(1, parse.answer);
+
+            
         }
         [TestCase("Bank.result")]
         [TestCase("Boat.result")]

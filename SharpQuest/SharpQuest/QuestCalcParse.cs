@@ -290,7 +290,24 @@ namespace SharpQuest
         }
         private void OpOr(QuestTCPVariant lf, QuestTCPVariant rf, ref QuestTCPVariant result)
         {
-            OpAnd(lf, rf, ref result); // ?? The same in source code
+            result.Clear();
+            if ((lf.vtype == QuestTCPVType.vtExt) && (rf.vtype == QuestTCPVType.vtExt))
+                result.vf = (lf.vf != 0) || (rf.vf != 0) ? 1 : 0;
+            else if ((lf.vtype == QuestTCPVType.vtRange) && (rf.vtype == QuestTCPVType.vtRange))
+            {
+                result.CopyDataFrom(lf);
+                result.vd.Add(rf.vd);
+            }
+            else if ((lf.vtype == QuestTCPVType.vtExt) && (rf.vtype == QuestTCPVType.vtRange))
+            {
+                result.CopyDataFrom(rf);
+                result.vd.Add(lf.vf);
+            }
+            else if ((lf.vtype == QuestTCPVType.vtRange) && (rf.vtype == QuestTCPVType.vtExt))
+            {
+                result.CopyDataFrom(lf);
+                result.vd.Add(rf.vf);
+            }
         }
 
         private int GetOperationOrder(char c)
@@ -321,7 +338,7 @@ namespace SharpQuest
             int pos = 0;
             int spcount = 0;
             int pcount = 0;
-            for (int i = 0; i <= len; i++)
+            for (int i = 0; i < len; i++)
             {
                 char c = str[i];
                 if (c == '(') pcount++;
@@ -699,7 +716,7 @@ namespace SharpQuest
                 {
                     if (s != "")
                     {
-                        if (!double.TryParse(s, out f))
+                        if (!double.TryParse(s.Replace(',','.'), out f))
                         {
                             error = true;
                             num_error = true;
