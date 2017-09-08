@@ -123,6 +123,38 @@ namespace QuestUnitTest
 
             
         }
+        class SourceClass
+        {
+            static object[] FileCases()
+            {
+                var list = new List<object>();
+
+                var basepath = Path.GetDirectoryName(new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+                basepath += "/../../../Data/";
+                basepath = Path.GetFullPath(basepath);
+
+                var fileList = new DirectoryInfo(basepath).GetFiles("*.result", SearchOption.AllDirectories);
+                foreach (var item in fileList)
+                {
+                    string filename = item.FullName;
+                    string path = Path.GetDirectoryName(filename);
+                    filename = Path.GetFileName(filename);
+                    list.Add(new object[] { path, filename});
+                }
+
+
+                object[] result = list.ToArray<object>();
+                return result;
+            }
+        }
+
+        [TestCaseSource(typeof(SourceClass), "FileCases")]
+        public void TestNew(string basepath, string filename)
+        {
+            TestQuest(basepath, filename);
+        }
+
+        /*
         [TestCase("Bank.result")]
         [TestCase("Boat.result")]
         [TestCase("Bondiana.result")]
@@ -155,14 +187,6 @@ namespace QuestUnitTest
             basepath += "/../../../Data/Other/";
             basepath = Path.GetFullPath(basepath);
             TestQuest(basepath, filename);
-            /*
-            DirectoryInfo d = new DirectoryInfo(basepath);
-
-            foreach (var file in d.GetFiles("*.result"))
-            {
-                TestQuest(basepath, file.Name);
-            }
-            */
         }
         [TestCase("Prison3.9.4.result")]
         [TestCase("Prison3.9.4(1).result")]
@@ -192,10 +216,12 @@ namespace QuestUnitTest
             basepath = Path.GetFullPath(basepath);
             TestQuest(basepath, filename);
         }
+        */
         public void TestQuest(string basepath, string filename)
         {
             int stepCounter = 0;
-            filename = basepath + filename;
+            filename = Path.Combine(basepath, filename);
+            
             
 
             using (var sr = new StreamReader(filename))
@@ -220,8 +246,9 @@ namespace QuestUnitTest
                 QuestRandom.FinishSeq();
                 
                 var questSteps = jObject.GetValue("Steps").Value<JArray>();
+
+                questFilename = Path.Combine(basepath, questFilename);
                 
-                questFilename = basepath + questFilename;
                 var q = new Quest(questFilename);
                 var player = new QuestPlayer(q);
 
@@ -379,8 +406,12 @@ namespace QuestUnitTest
                     {
                         for (var ki = QuestRandom.RamdomCallCount() + 1; ki <= RandomCount; ++ki)
                         {
-                            Console.Write(ki + " ");
-                            QuestRandom.DebugPrint(ki);
+                            try
+                            {
+                                Console.Write(ki + " ");
+                                QuestRandom.DebugPrint(ki);
+                            }
+                            catch { }
                         }
                         Console.WriteLine();
                     }
@@ -391,7 +422,7 @@ namespace QuestUnitTest
                     {
                         int step_index = Answer.GetValue("Index").Value<int>();
                         string step_string = Answer.GetValue("Value").Value<string>();
-
+                        step_string = step_string.Replace("\r", "");
                         QuestPath qp = trans[step_index - 1];
                         EndPathMessage = player.quest.ProcessString(EndPathMessage, player.Pars);
                         Assert.AreEqual(EndPathMessage, qp.EndPathMessage, string.Format("Invalid EndPathMessage (step: {0})", stepcount));
