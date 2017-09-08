@@ -121,7 +121,12 @@ namespace QuestUnitTest
             Assert.IsFalse(parse.error);
             Assert.AreEqual(1, parse.answer);
 
-            
+            tstr = "(0-8)";
+            parse = new QuestCalcParse();
+            parse.Parse(tstr, Pars);
+            Assert.IsFalse(parse.error);
+            Assert.AreEqual(-8, parse.answer);
+
         }
         class SourceClass
         {

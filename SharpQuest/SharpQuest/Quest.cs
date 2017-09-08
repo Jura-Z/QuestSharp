@@ -151,11 +151,8 @@ namespace SharpQuest
                     for (var i = 0; i < maxparameters; ++i)
                         Pars[i].Load_3_9_6(fs);
                     
-                    //if (FileVersion_Current.isSince4_0_1()) ?? 
-                    {
-                        //for (var i = 0; i < maxparameters; ++i)
-                        //    Pars[i].AltDiapStartValues.Add(Pars[i].value);
-                    }
+                    for (var i = 0; i < maxparameters; ++i)
+                        Pars[i].AltDiapStartValues.Add(Pars[i].value);
                 }
                 else if (version.isSince3_9_5())
                 {

@@ -72,7 +72,7 @@ namespace SharpQuest
         {
             str = ConvertStirng(str);
 
-            string tmp = InsertParValues(str, pars);
+            string tmp = InsertParValues(str, pars, false);
             tmp = "(" + tmp + ")";
             QuestTCPVariant range = Calc(tmp);
             double value = range.GetValue();
@@ -97,13 +97,16 @@ namespace SharpQuest
             }
             if (calc_error) error = true;
         }
-        public static string InsertParValues(string str, int[] pars)
+        public static string InsertParValues(string str, int[] pars, bool asItIs = true)
         {
             string result = str;
             for (int i = 0; i < pars.Length; i++)
             {
                 int val = pars[i];
-                string s = (val < 0) ? string.Format("(0{0})", val) : string.Format("{0}", val);
+                string s = string.Format("{0}", val);
+                if (val < 0)
+                    s = asItIs ? s : string.Format("(0{0})", val);
+                
                 result = StringReplace(result, string.Format("[p{0}]", i+1), s);
             }
             return result;
