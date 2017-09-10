@@ -720,7 +720,13 @@ namespace SharpQuest
                     mixed_answers.Add(PAnswer);
             }
 
-            mixed_answers.Sort((p1, p2) => { return p1.ShowOrder.CompareTo(p2.ShowOrder); });
+            mixed_answers.Sort((p1, p2) =>
+            {
+                var order = p1.ShowOrder.CompareTo(p2.ShowOrder);
+                if (order == 0)
+                    order = 1;
+                return order;
+            });
 
             if (mixed_answers.Count == 1 && PathIsVoid(mixed_answers[0]))
             {
