@@ -326,6 +326,32 @@ namespace SharpQuest
         public bool failFlag = false;
         public int[] UndoPar = new int[Quest.maxparameters];
 
+        private void CreateFinalAnswer(string text)
+        {
+            LastPossibleTransitions.Clear();
+            var tmp = new QuestPath();
+            tmp.Clear();
+            tmp.PathNumber = 0;
+            tmp.PathIndx = -1;
+            tmp.StartPathMessage = text;
+            LastPossibleTransitions.Add(tmp);
+        }
+        private bool CheckLocationType()
+        {
+            if (quest.Locations[currentLocationIndx].EndLocationFlag)
+            {
+                CreateFinalAnswer("Конец квеста");
+                return false;
+            }
+            else if (quest.Locations[currentLocationIndx].FailLocationFlag)
+            {
+                CreateFinalAnswer("Игра кончилась");
+                return false;
+            }
+
+            return true;
+            // !!
+        }
         void WeAreInTheLocation()
         {
 
@@ -356,6 +382,13 @@ namespace SharpQuest
             ProcessParametersWithDelta(delta);
             ProcessParVisualOpions(delta);
 
+            string tmp = quest.Paths[lastpathindex].EndPathMessage;
+            if (!string.IsNullOrEmpty(tmp))
+            {
+                LastLocationDescription = quest.ProcessString(tmp, Pars);
+                quest.Locations[currentLocationIndx].LocationDescription = LastLocationDescription;
+            }
+
             //Печатаем текст локации,если все нормально
             if (quest.Locations[currentLocationIndx].VoidLocation == false)
             {
@@ -384,6 +417,9 @@ namespace SharpQuest
                 return;
             }
 
+            if (!CheckLocationType())
+                return;
+
             LastPossibleTransitions = PossibleTransitionsInner();
             if ((LastPossibleTransitions.Count == 1) && (LastPossibleTransitions[0].PathIndx > 0) && (LastPossibleTransitions[0].StartPathMessage == ""))
             {
@@ -391,7 +427,6 @@ namespace SharpQuest
             }
             else
             {
-                string tmp;
                 tmp = quest.Paths[lastpathindex].EndPathMessage;
                 if (quest.Locations[currentLocationIndx].VoidLocation && (string.IsNullOrEmpty(tmp)))
                 {
@@ -698,8 +733,8 @@ namespace SharpQuest
                     if (mixed_answers[i].StartPathMessage.Trim() != "")
                     {
                         QuestPath tmp = mixed_answers[i];
-                        tmp.StartPathMessage = quest.ProcessString(tmp.StartPathMessage, Pars);
-                        tmp.EndPathMessage = quest.ProcessString(tmp.EndPathMessage, Pars);
+                        //tmp.StartPathMessage = quest.ProcessString(tmp.StartPathMessage, Pars);
+                        //tmp.EndPathMessage = quest.ProcessString(tmp.EndPathMessage, Pars);
                         result.Add(tmp);
                         //AddAnswer(mixed_answers[i].i, mixed_answers[i].text, mixed_answers[i].GatesOk);
                     }
@@ -847,12 +882,6 @@ namespace SharpQuest
             //            {
             //                Console.WriteLine(quest.Paths[pathindex].EndPathMessage.Trim());
             //            }
-            string tmp = quest.Paths[lastpathindex].EndPathMessage;
-            if (!string.IsNullOrEmpty(tmp))
-            {
-                LastLocationDescription = quest.ProcessString(tmp, Pars);
-                quest.Locations[currentLocationIndx].LocationDescription = LastLocationDescription;
-            }
 
             WeAreInTheLocation();
         }

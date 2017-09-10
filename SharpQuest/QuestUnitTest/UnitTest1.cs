@@ -262,9 +262,13 @@ namespace QuestUnitTest
                 {
                     stepcount++;
 
-                    var description = step.GetValue("Description").Value<string>();
-                    description = description.Replace("\r", "");
-
+                    string description = "";
+                    try
+                    {
+                        description = step.GetValue("Description").Value<string>();
+                        description = description.Replace("\r", "");
+                    }
+                    catch { }
                     var EndPathMessage = "";
                     try
                     {
@@ -352,6 +356,22 @@ namespace QuestUnitTest
                     }
                     /**/
 
+                    if (Answers.Count != trans.Count)
+                    {
+                        Console.WriteLine("Expected:");
+                        foreach (JObject item in Answers)
+                        {
+                            int index = item.GetValue("Index").Value<int>();
+                            string value = item.GetValue("Value").Value<string>();
+                            int number = item.GetValue("Number").Value<int>();
+                            Console.WriteLine(string.Format("i: {0}, v:{1}, n:{2}", index, value, number));
+                        }
+                        Console.WriteLine("Actualy:");
+                        foreach (var item in trans)
+                        {
+                            Console.WriteLine(trans);
+                        }
+                    }
                     Assert.AreEqual(Answers.Count, trans.Count, string.Format("Invalid Answers.Count (step: {0})", stepcount));
                     i = 0;
                     foreach (JObject item in Answers)
@@ -366,9 +386,10 @@ namespace QuestUnitTest
 
                         value1 = value1.Replace("\r", "");
                         value2 = value2.Replace("\r", "");
+                        value2 = player.quest.ProcessString(value2, player.Pars);
                         Assert.AreEqual(index1, index2, string.Format("Invalid Answer index[{0}] (step: {1})", i, stepcount));
-                        Assert.AreEqual(value1, value2, string.Format("Invalid Answer value[{0}] (step: {1})", i, stepcount));
                         Assert.AreEqual(number1, number2, string.Format("Invalid Answer number[{0}] (step: {1})", i, stepcount));
+                        Assert.AreEqual(value1, value2, string.Format("Invalid Answer value[{0}] (step: {1})", i, stepcount));
                         
                         i++;
                     }
@@ -430,8 +451,10 @@ namespace QuestUnitTest
                         step_string = step_string.Replace("\r", "");
                         QuestPath qp = trans[step_index - 1];
                         EndPathMessage = player.quest.ProcessString(EndPathMessage, player.Pars);
-                        Assert.AreEqual(EndPathMessage, qp.EndPathMessage, string.Format("Invalid EndPathMessage (step: {0})", stepcount));
-                        Assert.AreEqual(step_string, qp.StartPathMessage, string.Format("Invalid StartPathMessage (step: {0})", stepcount));
+                        string ss = player.quest.ProcessString(qp.EndPathMessage, player.Pars);
+                        Assert.AreEqual(EndPathMessage, ss, string.Format("Invalid EndPathMessage (step: {0})", stepcount));
+                        ss = player.quest.ProcessString(qp.StartPathMessage, player.Pars);
+                        Assert.AreEqual(step_string, ss, string.Format("Invalid StartPathMessage (step: {0})", stepcount));
 
                         Console.WriteLine("#{1} Step done: {0}", qp, ++stepCounter);
 
