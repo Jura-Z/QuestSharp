@@ -223,9 +223,9 @@ namespace SharpQuest
             {
                 if (quest.Pars[i].Enabled == false)
                     continue;
-                if (WeHaveSavingPath(LocationIndx, i, pars))
-                    continue;
                 if (oldPars[i] == pars[i])
+                    continue;
+                if (WeHaveSavingPath(LocationIndx, i, pars))
                     continue;
 
                 if (quest.Pars[i].ParType != QuestParameter.FailParType &&
@@ -660,7 +660,8 @@ namespace SharpQuest
 
                     for (int c = 0; c < mixed_answers_flags.Length; ++c)
                     {
-                        if (found_answers[i].StartPathMessage.Trim() == found_answers[c].StartPathMessage.Trim())
+                        if (quest.CompareQuestStrings(found_answers[i].StartPathMessage, found_answers[c].StartPathMessage))
+                        //if (found_answers[i].StartPathMessage.Trim() == found_answers[c].StartPathMessage.Trim())
                         {
                             mixed_answers_flags[c] = false;
 

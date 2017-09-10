@@ -163,9 +163,10 @@ namespace SharpQuest
                             if (ch == '|') OpOr(lf, rf, ref result);
 
                         }
-                        catch
+                        catch(Exception e)
                         {
                             calc_error = true;
+                            throw e;
                         }
                     }
                 }

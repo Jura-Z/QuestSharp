@@ -43,7 +43,7 @@ namespace SharpQuest
                 var res = values[indx++];
                 
                 if (res.name != name) throw new Exception(string.Format("name is different E:{0}, A:{1}", res.name, name));
-                if (res.max != max) throw new Exception(string.Format("max is different. '{3}' expected {0} but received {1}. randomCallCount = {2}", max, res.max, randomCallCount, name));
+                if (res.max != max) throw new Exception(string.Format("max is different. '{3}' expected {0} but received {1}. randomCallCount = {2}", res.max, max, randomCallCount, name));
                 if (res.max != 0 && res.val >= res.max) throw new Exception(string.Format("val {0} >= max {1}", res.val, res.max));
                 
                 return res.val;

@@ -343,5 +343,18 @@ namespace SharpQuest
             return text;
 
         }
+        private string prepareStringForCompare(string s)
+        {
+            s = s.Trim();
+            s = s.Replace("<clr>", "");
+            s = s.Replace("<clrEnd>", "");
+            return s;
+        }
+        public bool CompareQuestStrings(string s1, string s2)
+        {
+            s1 = prepareStringForCompare(s1);
+            s2 = prepareStringForCompare(s2);
+            return s1 == s2;
+        }
     }
 }
